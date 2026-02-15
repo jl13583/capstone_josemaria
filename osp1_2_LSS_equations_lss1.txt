@@ -1,0 +1,211 @@
+=== All polynomial equations (expanded) ===
+
+[0] 3*tau5**3 + 3*tau5
+[1] tau10*tau16 + tau18*tau2*tau8 + tau18 + tau21 + tau8
+[2] tau16*tau19*tau2 + tau16*tau9 + tau17*tau18 + tau17*tau2 + tau18*tau2*tau7 + tau20 + tau7
+[3] tau10*tau17*tau2 + tau10*tau7 + tau12 + tau19*tau2 + tau19*tau8 + tau2*tau8*tau9 + tau9
+[4] tau10*tau16*tau2 + tau11 + tau18*tau2 + tau18*tau8 + tau2*tau8
+[5] 3
+[6] tau12*tau16 + tau17 + tau2*tau20*tau8 + tau20
+[7] tau11*tau16 + tau16*tau2*tau21 + tau16*tau2 + tau17*tau20 + tau2*tau20*tau7
+[8] tau11*tau2*tau8 + tau11 + tau12*tau17*tau2 + tau12*tau7 + tau2*tau21 + tau21*tau8 + 3*tau8 - 3
+[9] tau12*tau16*tau2 + tau2*tau20 + tau20*tau8 + tau7
+[10] -tau16*tau8 + tau16 + tau17**2*tau2 + tau21
+[11] 2*tau16*tau17*tau2 + tau16*tau17 - tau16*tau7 + tau20
+[12] tau10*tau16*tau2 + tau10*tau16 + tau17*tau19*tau2 + tau18*tau2*tau8 + tau18 + tau21
+[13] tau16*tau19*tau2 + tau16*tau2*tau9 + tau16*tau9 + tau17*tau18*tau2 + tau17*tau18 + tau18*tau2*tau7 + tau20
+[14] tau12*tau16*tau2 + tau12*tau16 + tau17*tau2*tau21 + tau17 + tau19*tau2 + tau2*tau20*tau8 + tau20 + tau21*tau5
+[15] tau11*tau16*tau2 + tau11*tau16 + tau16*tau2*tau21 + tau16 + tau17*tau2*tau20 + tau17*tau20 + tau18*tau2 + tau2*tau20*tau7 + tau20*tau5
+[16] tau13*tau16*tau2 + tau17*tau2 + 2*tau17
+[17] tau14*tau16*tau2
+[18] tau15*tau16*tau2 + tau16 + tau2
+[19] tau13*tau17*tau2 + tau13*tau17 + tau13*tau2*tau7 + tau15 + tau8 - 2
+[20] tau14*tau17*tau2 + tau14*tau17 + tau14*tau2*tau7 + tau15*tau2 + tau16*tau2 + tau16 - tau2*tau6
+[21] tau13 + tau14 + tau15*tau17*tau2 + tau15*tau17 + tau15*tau2*tau7 + tau15*tau5 + tau17*tau2 + tau17 + tau3 + tau7
+[22] tau12 + tau17*tau2*tau8 + tau17*tau2 + tau2*tau7*tau8 + tau7
+[23] tau11 + tau16*tau2*tau8 + tau16*tau2 + tau2*tau7**2
+[24] tau10*tau17*tau2 + tau12 + tau19*tau2 + tau2*tau8*tau9 + tau9
+[25] tau10*tau16*tau2 + tau11 + tau18*tau2 + tau2*tau7*tau9
+[26] tau10*tau2 + tau11*tau2*tau8 + tau11 + tau12*tau17*tau2 + tau12*tau5 + tau2*tau21 + tau8
+[27] tau11*tau2*tau7 + tau11*tau5 + tau12*tau16*tau2 + tau2*tau20 + tau2*tau9 + tau7
+[28] tau13*tau17 + tau15*tau2 + tau2
+[29] tau14*tau17 + tau14*tau5 + tau15 + tau16*tau2
+[30] tau13*tau2 + tau14*tau2*tau5**2 + tau14*tau2 + tau15*tau17
+[31] tau13*tau8
+[32] tau14*tau8 + tau2*tau7 + tau3
+[33] tau15*tau8
+[34] -3*tau5**2
+[35] tau10*tau16*tau2 + tau18*tau2 + tau18*tau8 + tau2*tau21 + tau2*tau8
+[36] tau16*tau19 + tau16*tau2*tau9 + tau17*tau18*tau2 + tau17 + tau18*tau7 + tau2*tau20 + tau2*tau7
+[37] tau10*tau17 + tau10*tau2*tau7 + tau12*tau2 + tau19*tau2*tau8 + tau19 + tau2*tau9 + tau8*tau9
+[38] tau10*tau16 + tau11*tau2 + tau18*tau2*tau8 + tau18 + tau8
+[39] -6*tau5**2
+[40] tau10*tau2*tau20 + tau12*tau18 + tau12*tau2 + 2*tau19
+[41] tau11*tau18 + tau11*tau2 + tau18*tau2*tau21 + tau19*tau20 + tau2*tau20*tau9 + tau21
+[42] tau10*tau11*tau2 + tau10*tau21 + 4*tau10 + tau12*tau19*tau2 + tau12*tau9
+[43] tau10*tau20 + tau12*tau18*tau2 + tau12 + 2*tau9
+[44] tau10*tau16*tau2 + tau17*tau19*tau2 + tau2*tau8
+[45] tau16*tau2*tau9 + tau17*tau18*tau2 + tau17 + tau2*tau7
+[46] tau10*tau18*tau2 + tau10*tau2 + tau17*tau5**3 + tau19**2*tau2 + tau2*tau21*tau5**2
+[47] tau16*tau5**3 + tau18*tau19*tau2 + tau18*tau2*tau9 + tau19 + tau2*tau20*tau5**2 + tau2*tau9
+[48] tau10*tau2*tau20 + tau12*tau2 + tau19*tau2*tau21 + tau19 + tau21*tau5
+[49] tau11*tau2 + tau18*tau2*tau21 + tau18 + tau2*tau20*tau9 + tau20*tau5 + tau21
+[50] tau13*tau18*tau2 + tau19
+[51] tau14*tau18*tau2 + tau2*tau3
+[52] tau15*tau18*tau2 + tau18 + tau2*tau5**2 + tau2
+[53] tau10 + tau13*tau2*tau9 + tau14*tau5**3 + tau2*tau5**2
+[54] tau14*tau2*tau9 + tau15
+[55] tau14*tau2*tau5**2 + tau15*tau2*tau9 + tau15*tau5 + tau2*tau4 + tau9
+[56] tau10*tau17*tau2 + tau10*tau17 + tau10*tau2*tau7 + tau19*tau2*tau8 + tau2*tau8*tau9 + tau8*tau9
+[57] tau10*tau16*tau2 + tau10*tau16 + tau18*tau2*tau8 + tau2*tau7*tau9 + tau8
+[58] -tau10*tau19 + 2*tau10*tau2*tau9 + tau10*tau9 + tau12*tau2*tau5**2 + tau5**3*tau8
+[59] -tau10*tau18 + tau10 + tau11*tau2*tau5**2 + tau2*tau9**2 + tau5**3*tau7
+[60] tau10*tau11*tau2 + tau10*tau2*tau21 + tau10*tau21 + tau10 + tau12*tau19*tau2 + tau12*tau2*tau9 + tau12*tau5 + tau12*tau9
+[61] tau10*tau2*tau20 + tau10*tau20 + tau11*tau2*tau9 + tau11*tau5 + tau12*tau18*tau2 + tau12 + tau9
+[62] tau10*tau2 + tau10 + tau13*tau19 + tau13*tau2*tau9 + tau13*tau9 + tau15*tau2*tau5**2
+[63] tau13*tau5 + tau14*tau19 + tau14*tau2*tau9 + tau14*tau5 + tau14*tau9 + tau15*tau2 + tau18*tau2 - tau2*tau6
+[64] tau13*tau2*tau5**2 + tau15*tau19 + tau15*tau2*tau9 + tau15*tau9
+[65] tau10*tau13 + tau5**3
+[66] tau10*tau14 - tau9
+[67] tau10*tau15 + tau10*tau2 + tau10 + tau2*tau5**2
+[68] -3
+[69] tau12*tau16*tau2 + tau17*tau2 + tau2*tau20 + tau20*tau8
+[70] tau11*tau16*tau2 + tau16*tau21 + tau16 + tau17*tau2*tau20 + tau20*tau7
+[71] tau11*tau2 + tau11*tau8 + tau12*tau17 + tau12*tau2*tau7 + tau2*tau21*tau8 + tau21 - 3*tau8 + 3
+[72] tau12*tau16 + tau2*tau20*tau8 + tau2*tau7 + tau20
+[73] -3*tau5**2
+[74] tau10*tau20 + tau12*tau18*tau2 + tau12 - 2*tau19
+[75] tau11*tau18*tau2 + tau11 + tau18*tau21 + tau19*tau2*tau20 + tau2*tau21 + tau20*tau9
+[76] tau10*tau11 + tau10*tau2*tau21 - 4*tau10 + tau12*tau19 + tau12*tau2*tau9
+[77] tau10*tau2*tau20 + tau12*tau18 + tau12*tau2 - 2*tau9
+[78] tau12*tau16*tau2 + tau17*tau2*tau21 + tau19*tau2 + tau21*tau5
+[79] tau11*tau16*tau2 + 2*tau16 + tau17*tau2*tau20 + tau18*tau2 + tau20*tau5
+[80] tau12*tau18*tau2 + tau19*tau2*tau21 + tau19*tau2 + tau21*tau5
+[81] tau11*tau18*tau2 + tau18 + tau19*tau2*tau20 + tau20*tau5
+[82] tau12*tau2*tau20 + tau17*tau5 + tau2*tau21**2 + tau21
+[83] tau11*tau2*tau20 + tau16*tau5 + tau2*tau20*tau21 + 3*tau20
+[84] tau13*tau2*tau20 + tau21 + 2
+[85] tau14*tau2*tau20 - tau2*tau6
+[86] tau15*tau2*tau20 + tau20 + tau3
+[87] tau11*tau13*tau2 + tau12 + tau15*tau5
+[88] tau11*tau14*tau2 + tau13*tau2 + tau14*tau2
+[89] tau11*tau15*tau2 + tau11 + tau13*tau5 + tau14*tau5 + tau15 + tau2
+[90] tau10*tau2 + tau12*tau2*tau7 + tau12*tau5 + tau2*tau21*tau8 - 2*tau8
+[91] tau11*tau2*tau7 + tau11*tau5 + tau2*tau20*tau8 + tau2*tau9
+[92] tau10*tau2*tau21 - 3*tau10 + tau12*tau2*tau9 + tau12*tau5
+[93] tau10*tau2*tau20 + tau11*tau2*tau9 + tau11*tau5 + tau2*tau9
+[94] tau11*tau12*tau2 + tau12*tau2*tau21 + tau12*tau2 + tau5*tau8
+[95] tau11**2*tau2 + tau11 + tau12*tau2*tau20 + tau5*tau7
+[96] tau13*tau21 + tau14*tau2*tau5**2
+[97] tau13 + tau14*tau21 + tau14 + tau2*tau20
+[98] tau15*tau2 + tau15*tau21
+[99] tau12*tau13
+[100] tau11*tau2 + tau12*tau14 - tau2*tau6
+[101] tau12*tau15 + tau4
+[102] tau16*tau2*tau8 + tau16*tau2 + 2*tau16*tau8 + tau17**2 + tau2*tau21
+[103] tau16*tau17*tau2 + 2*tau16*tau17 + tau16*tau2*tau7 + 2*tau16*tau7 + tau2*tau20
+[104] tau10*tau16*tau2 + tau10*tau16 + tau17*tau19 + tau18*tau2 + tau18*tau8 + tau19*tau5 + tau2*tau21*tau5**2 + tau2*tau21
+[105] tau16*tau19 + tau16*tau2*tau9 + tau16*tau9 + tau17*tau18*tau2 + tau17*tau18 + tau18*tau5 + tau18*tau7 + tau2*tau20*tau5**2 + tau2*tau20
+[106] tau12*tau16*tau2 + tau12*tau16 + tau17*tau2 + tau17*tau21 + tau19 + tau2*tau20 + tau20*tau8
+[107] tau11*tau16*tau2 + tau11*tau16 + tau16*tau2 + tau16*tau21 + tau17*tau2*tau20 + tau17*tau20 + tau18 + tau20*tau7
+[108] tau13*tau16 - tau17
+[109] tau14*tau16
+[110] tau15*tau16 + tau16*tau2 - tau2*tau6
+[111] tau13*tau17*tau2 + tau13*tau17 + tau13*tau7 + tau15*tau2 + tau2*tau8 + 2
+[112] tau14*tau17*tau2 + tau14*tau17 + tau14*tau5 + tau14*tau7 + tau15 + tau16*tau2 + tau16 + tau2
+[113] tau13*tau2 + tau14*tau2*tau5**2 + tau14*tau2 + tau15*tau17*tau2 + tau15*tau17 + tau15*tau7 + tau17*tau2 + tau17 + tau2*tau3 + tau2*tau7
+[114] tau10*tau16 + tau17*tau19 + tau19*tau5 + tau2*tau21*tau5**2 + tau8
+[115] tau16*tau9 + tau17*tau18 + tau17*tau2 + tau18*tau5 + tau2*tau20*tau5**2 + tau7
+[116] tau10*tau18 + tau10 + tau19**2 + tau19*tau5
+[117] tau18*tau19 + tau18*tau5 + tau18*tau9 + tau19*tau2 + tau9
+[118] tau10*tau20 + tau12 + tau17*tau2*tau5**2 + tau19*tau2 + tau19*tau21
+[119] tau11 + tau16*tau2*tau5**2 + tau18*tau2 + tau18*tau21 + tau2*tau21 + tau20*tau9
+[120] tau13*tau18 + tau19*tau2
+[121] tau14*tau18 + tau3
+[122] tau15*tau18 + tau18*tau2 - tau2*tau6
+[123] tau10*tau2 + tau13*tau9 + tau15*tau2*tau5**2
+[124] tau13*tau5 + tau14*tau5 + tau14*tau9 + tau15*tau2
+[125] tau13*tau2*tau5**2 + tau15*tau9 + tau2*tau9 + tau4
+[126] tau12*tau16 + tau17*tau21 + tau19
+[127] tau11*tau16 - 2*tau16 + tau17*tau20 + tau18
+[128] tau12*tau18 + tau17*tau2*tau5**2 + tau19*tau21 + tau19
+[129] tau11*tau18 + tau16*tau2*tau5**2 + tau18*tau2 + tau19*tau20
+[130] tau12*tau20 + tau2*tau21 + tau21**2
+[131] tau11*tau20 + tau20*tau21 - 3*tau20
+[132] tau13*tau20 + tau2*tau21 - 2
+[133] tau14*tau20 + tau2
+[134] tau15*tau20 + tau2*tau20 + tau2*tau3
+[135] tau11*tau13 + tau12*tau2 + tau14*tau2*tau5**2 + tau5
+[136] tau11*tau14 + tau13 + tau14
+[137] tau11*tau15 + tau11*tau2 + tau15*tau2 - tau2*tau6
+[138] 2*tau13*tau16 - 2*tau17
+[139] 2*tau14*tau16
+[140] 2*tau15*tau16 - 2*tau16 + 2
+[141] 2*tau13*tau18 - 2*tau19
+[142] 2*tau14*tau18
+[143] 2*tau15*tau18 - 2*tau18 + 2
+[144] 2*tau13*tau20 - 2*tau21 + 2
+[145] 2*tau14*tau20 - 2
+[146] 2*tau15*tau20 - 2*tau20 + 2*tau5
+[147] 2*tau13*tau17 + 2*tau14*tau19 + 2*tau15*tau21 - 2*tau21 + 2*tau8 - 2
+[148] 2*tau13*tau16 + 2*tau14*tau18 + 2*tau15*tau20 - 2*tau20 + 2*tau7
+[149] tau13*tau17*tau2 + tau13*tau7 + tau2*tau8
+[150] tau14*tau17*tau2 + tau14*tau7 + tau16 + tau2
+[151] tau15*tau17*tau2 + tau15*tau7 + tau2*tau3 + tau2*tau7
+[152] tau10*tau2 + tau13*tau19*tau2 + tau13*tau9
+[153] tau14*tau19*tau2 + tau14*tau9 + tau18 + tau2
+[154] tau15*tau19*tau2 + tau15*tau9 + tau2*tau9 + tau4
+[155] tau11*tau13 + tau12*tau2 + tau13*tau2*tau21 + tau5
+[156] tau11*tau14 + tau14*tau2*tau21 + tau20
+[157] tau11*tau15 + tau11*tau2 + tau15*tau2*tau21 - tau2*tau6
+[158] tau13*tau17*tau2 + tau14*tau19*tau2 + tau15*tau2*tau21 - tau2*tau6 + tau2*tau8 + tau21
+[159] tau13*tau16*tau2 + tau14*tau18*tau2 + tau15*tau2*tau20 + tau2*tau7 + tau20
+[160] tau10*tau14 + tau12*tau15 + tau13*tau8 + tau19
+[161] tau11*tau15 + tau13*tau7 + tau14*tau9 + tau18 + tau2
+[162] tau12*tau2 + tau17*tau8 + tau17 + tau2*tau7 + tau7*tau8
+[163] tau11*tau2 + tau16*tau8 + tau16 + tau7**2
+[164] tau10*tau17 + tau10*tau5 + tau12*tau2*tau5**2 + tau12*tau2 + tau19 + tau2*tau9 + tau8*tau9
+[165] tau10*tau16 + tau11*tau2*tau5**2 + tau11*tau2 + tau18 + tau5*tau9 + tau7*tau9
+[166] tau10 + tau11*tau2 + tau11*tau8 + tau12*tau17 + tau2*tau8 + tau21
+[167] tau11*tau7 + tau12*tau16 + tau2*tau7 + tau20 + tau9
+[168] tau13*tau17*tau2 + tau15 - tau2*tau6
+[169] tau14*tau17*tau2 + tau15*tau2 + tau16
+[170] tau13 + tau14 + tau15*tau17*tau2 + tau15*tau5
+[171] tau13*tau2*tau8
+[172] tau14*tau2*tau8 + tau2*tau3 + tau7
+[173] tau15*tau2*tau8 + tau2*tau5**2
+[174] tau10*tau17*tau2 + tau10*tau17 + tau10*tau5 + tau10*tau7 + tau12*tau2*tau5**2 + tau19*tau8 + tau2*tau8*tau9 + tau8*tau9
+[175] tau10*tau16*tau2 + tau10*tau16 + tau11*tau2*tau5**2 + tau18*tau8 + tau2*tau8 + tau5*tau9 + tau7*tau9
+[176] tau10*tau19*tau2 + 2*tau10*tau19 + tau10*tau2*tau9 + tau10*tau5 + 2*tau10*tau9
+[177] tau10*tau18*tau2 + 2*tau10*tau18 + tau10*tau2 + tau5*tau9 + tau9**2
+[178] tau10*tau11 + tau10*tau2*tau21 + tau10*tau2 + tau10*tau21 + tau12*tau19 + tau12*tau2*tau9 + tau12*tau9 + tau2*tau5**2*tau8
+[179] tau10*tau2*tau20 + tau10*tau20 + tau11*tau9 + tau12*tau18 + tau12*tau2 + tau2*tau5**2*tau7 + tau2*tau9
+[180] tau10*tau2 + tau10 + tau13*tau19*tau2 + tau13*tau2*tau9 + tau13*tau9 + tau14*tau5**3
+[181] tau14*tau19*tau2 + tau14*tau2*tau9 + tau14*tau9 + tau15 + tau18 + tau2
+[182] tau14*tau2*tau5**2 + tau15*tau19*tau2 + tau15*tau2*tau9 + tau15*tau5 + tau15*tau9
+[183] tau10*tau13*tau2
+[184] tau10*tau14*tau2 + tau2*tau9 + tau5 + 2*tau9
+[185] tau10*tau15*tau2 + tau10*tau2 + tau10
+[186] tau10 + tau12*tau7 + tau21*tau8 + 2*tau8
+[187] tau11*tau7 + tau20*tau8 + tau9
+[188] tau10*tau21 + 3*tau10 + tau12*tau9 + tau2*tau5**2*tau8
+[189] tau10*tau20 + tau11*tau9 + tau2*tau5**2*tau7 + tau9
+[190] tau11*tau12 + tau12*tau21 + tau12
+[191] tau11**2 + tau11*tau2 + tau12*tau20
+[192] tau13*tau2*tau21 + tau15*tau5
+[193] tau13*tau2 + tau14*tau2*tau21 + tau14*tau2 + tau20
+[194] tau13*tau5 + tau14*tau5 + tau15*tau2*tau21 + tau15
+[195] tau12*tau13*tau2 + tau2*tau5**2
+[196] tau11 + tau12*tau14*tau2 + tau2
+[197] tau12*tau15*tau2 + tau2*tau4
+[198] -2*tau13*tau8
+[199] -2*tau14*tau8 + 2*tau5 + 2*tau7
+[200] -2*tau15*tau8 - 2*tau5**2
+[201] -2*tau10*tau13
+[202] -2*tau10*tau14 + 2*tau5 + 2*tau9
+[203] -2*tau10*tau15
+[204] -2*tau12*tau13 - 2*tau5**2
+[205] 2*tau11 - 2*tau12*tau14 - 2
+[206] -2*tau12*tau15
+[207] -2*tau10*tau14 - 2*tau12*tau15 - 2*tau13*tau8 - 2*tau19
+[208] -2*tau11*tau15 - 2*tau13*tau7 - 2*tau14*tau9 - 2*tau18 + 2
