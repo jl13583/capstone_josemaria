@@ -9,6 +9,75 @@ import csv
 from collections import Counter
 import math 
 from sympy import factor_list
+# --------------------------------------------------------
+# Helper function: Reducing polynomial coefficients mod p
+# --------------------------------------------------------
+
+def preprocess_polys_in_char_p(expr, p, gens, invert_pairs=None):
+    """
+    Prepare polynomial system over GF(p).
+    - expr: list of expressions f = 0
+    - gens: list of poly generators 
+    - invert_pairs: list of pairs (a,b) to replace a with b^{-1} mod p (e.g. for g and ginv)
+    
+    Returns: list of polynomial expressions reduced mod p
+    """
+    polys = list(expr)
+
+    # Enforce invertibility ONLY if requested
+    invertible_syms = set()
+    if invert_pairs:
+        for g, ginv in invert_pairs:
+            polys.append(g*ginv - 1)
+            invertible_syms |= {g, ginv}
+
+    out = []
+    for f in polys:
+        f = sp.expand(f)
+        num, den = sp.fraction(sp.together(f))
+
+        if den != 1:
+            # If denominator uses ONLY invertible symbols (e.g. g, ginv),
+            # we can clear it safely in the localized ring.
+            den_syms = den.free_symbols
+            if invertible_syms and den_syms.issubset(invertible_syms):
+                # equation num/den = 0 is equivalent to num = 0 on den ≠ 0
+                f = num
+            else:
+                raise ValueError(f"Non-polynomial expression remains: denominator {den}")
+
+        P = sp.Poly(sp.expand(f), *gens, modulus=p)
+        out.append(P.as_expr())
+
+    return out
+
+def rewrite_inverses(expr, g, ginv):
+    """
+    Rewrite any negative powers so expression becomes polynomial in g and ginv,
+    assuming ginv = g^{-1}.
+
+    Rules:
+    g^(-n)     -> ginv^n
+    ginv^(-n)  -> g^n
+    """
+    expr = sp.together(expr)
+
+    def repl_pow(e):
+        base, exp = e.base, e.exp
+        if exp.is_Integer and exp < 0:
+            n = int(-exp)
+            if base == g:
+                return ginv**n
+            if base == ginv:
+                return g**n
+        return e
+
+    expr = expr.replace(lambda e: isinstance(e, sp.Pow), repl_pow)
+
+    # Catch any remaining 1/g or 1/ginv that might appear as Mul/Div forms
+    expr = expr.subs({1/g: ginv, 1/ginv: g})
+
+    return sp.expand(expr)
 
 # --------------------------------------------------------
 # 1. Define symbols for unknown coefficients
@@ -20,7 +89,7 @@ odd  = ['Tp','Tm']
 gens = even + odd
 
 # --- Choosing Burde's structures ---
-structure_version = 1  # or 2
+structure_version = 2  # or 2
 
 if structure_version == 1:
     u, v = sp.symbols('u v')
@@ -827,36 +896,57 @@ use_char3 = True   # set to True if working over GF(3) or sp.EX; otherwise False
     
 if reduced_polys:
     if use_char3:
-        print("\nComputing Groebner basis over sp.EX ... (may take time)")
-        try:
-            G = groebner(reduced_polys, *unknowns2, order='lex', domain=sp.EX)
-            print("Groebner basis size:", len(G))
-            # check for 1 in basis => inconsistent
-            if any(g == 1 for g in G):
-                print("Groebner contains 1: system inconsistent over sp.EX — NO solution.")
-                print(G)
-            else:
-                print("Groebner basis (sample):")
-                for i,g in enumerate(G[:min(len(G),8)]):
-                    print(i, g)
-        except Exception as err:
-            print("Groebner failed:", err)
-    else:
-        print("Computing Groebner basis over QQ ... (may be heavy)")
-        try:
-            G = groebner(reduced_polys, *unknowns2, order='lex', domain=sp.QQ)
-            print("Groebner basis size:", len(G))
-            if any(g == 1 for g in G):
-                print("Groebner contains 1: system inconsistent over QQ.")
-            else:
-                print("Groebner basis (sample):")
-                for i,g in enumerate(G[:min(len(G),8)]):
-                    print(i, g)
-        except Exception as err:
-            print("Groebner failed:", err)
-else:
-    print("No nonlinear polys remaining to Groebner (all constraints linear and solved).")
+        print("\nReducing coefficients mod 3 and computing Groebner basis over GF(3)...")
 
+        # IMPORTANT: include parameters as polynomial indeterminates too,
+        # so they are NOT treated as coefficients in a char-0 domain.
+        params = sorted(
+        set().union(*[f.free_symbols for f in reduced_polys]) - set(unknowns2),
+        key=lambda s: s.name
+        )
+
+        # Put unknowns first for lex order elimination behavior
+        gens_all = list(unknowns2) + list(params)
+
+        try:
+            if structure_version == 1:
+                # Structure 1: polynomial system (no inverses)
+                polys_for_gb = reduced_polys
+                reduced_polys_mod3 = preprocess_polys_in_char_p(polys_for_gb, 3, gens_all, invert_pairs=None)
+
+            elif structure_version == 2:
+                polys_for_gb = list(reduced_polys)  # don't manually add g*ginv-1 here anymore
+                reduced_polys_mod3 = preprocess_polys_in_char_p(polys_for_gb, 3, gens_all, invert_pairs=[(g, ginv)])
+                
+            else:
+                raise ValueError("Unknown structure; expected 1 or 2")
+            
+            for i, p in enumerate(reduced_polys_mod3):
+                num, den = sp.fraction(sp.together(p))
+                if den != 1:
+                    print("Still has denominator:", den, "in equation", i)
+                    print("Equation:", p)
+                    break
+            
+            # Use modulus=3 (this is the key change)
+            G = groebner(reduced_polys_mod3, *gens_all, order='lex', domain=sp.GF(3), method='buchberger')
+
+            print("Groebner basis size:", len(G))
+            inconsistent = any(gb == 1 for gb in G)
+            print("Inconsistent (1 in basis)?", inconsistent)
+            print(G)
+
+        except Exception as e:
+            print("Groebner(mod 3) failed:", e)
+
+    else:
+        print("\nComputing Groebner basis over QQ ...")
+        try:
+            G = groebner(reduced_polys, *unknowns2, order='lex', domain=sp.QQ, method='buchberger')
+            print("Groebner basis size:", len(G))
+        except Exception as e:
+            print("Groebner(QQ) failed:", e)
+            
 # --- Fallback: try randomized finite-field search if GF(3) and number of free vars smallish ---
 if use_char3 and reduced_polys:
     K = len(unknowns2)
