@@ -1,0 +1,29 @@
+τ ↔ b_{X,Y,Z} mapping (from linear solver)
+==========================================
+
+tau0 : (u - v)**2
+tau1 : (u - v)**2 + 1
+tau10 : b_F_Tm_Tp, b_Tm_F_Tp
+tau11 : b_Tm_H_Tm
+tau12 : b_Tm_H_Tp
+tau13 : b_Tm_Tp_E
+tau14 : b_Tm_Tp_F
+tau15 : b_Tm_Tp_H
+tau16 : b_E_Tp_Tm, b_Tp_E_Tm
+tau17 : b_E_Tp_Tp, b_Tp_E_Tp
+tau18 : b_Tp_F_Tm
+tau19 : b_Tp_F_Tp
+tau2 : -1
+tau20 : b_Tp_H_Tm
+tau21 : b_Tp_H_Tp
+tau22 : u - v
+tau23 : u - v*(u - v)**2
+tau24 : v*(-u + v)
+tau25 : v*(u - v)
+tau3 : -u + v
+tau4 : -u - v
+tau5 : -v
+tau6 : 1
+tau7 : b_Tm_E_Tm
+tau8 : b_Tm_E_Tp
+tau9 : b_F_Tm_Tm, b_Tm_F_Tm

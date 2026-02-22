@@ -1,0 +1,211 @@
+Rewritten polynomial system (only b_X_Y_Z coefficients):
+
+-3*v**3 - 3*v
+b_E_Tp_Tm*b_F_Tm_Tp - b_Tm_E_Tp*b_Tp_F_Tm + b_Tm_E_Tp + b_Tp_F_Tm + b_Tp_H_Tp
+b_E_Tp_Tm*b_F_Tm_Tm - b_E_Tp_Tm*b_Tp_F_Tp + b_E_Tp_Tp*b_Tp_F_Tm - b_E_Tp_Tp - b_Tm_E_Tm*b_Tp_F_Tm + b_Tm_E_Tm + b_Tp_H_Tm
+-b_E_Tp_Tp*b_F_Tm_Tp - b_F_Tm_Tm*b_Tm_E_Tp + b_F_Tm_Tm + b_F_Tm_Tp*b_Tm_E_Tm + b_Tm_E_Tp*b_Tp_F_Tp + b_Tm_H_Tp - b_Tp_F_Tp
+-b_E_Tp_Tm*b_F_Tm_Tp + b_Tm_E_Tp*b_Tp_F_Tm - b_Tm_E_Tp + b_Tm_H_Tm - b_Tp_F_Tm
+3
+b_E_Tp_Tm*b_Tm_H_Tp + b_E_Tp_Tp - b_Tm_E_Tp*b_Tp_H_Tm + b_Tp_H_Tm
+b_E_Tp_Tm*b_Tm_H_Tm - b_E_Tp_Tm*b_Tp_H_Tp - b_E_Tp_Tm + b_E_Tp_Tp*b_Tp_H_Tm - b_Tm_E_Tm*b_Tp_H_Tm
+-b_E_Tp_Tp*b_Tm_H_Tp + b_Tm_E_Tm*b_Tm_H_Tp - b_Tm_E_Tp*b_Tm_H_Tm + b_Tm_E_Tp*b_Tp_H_Tp + 3*b_Tm_E_Tp + b_Tm_H_Tm - b_Tp_H_Tp - 3
+-b_E_Tp_Tm*b_Tm_H_Tp + b_Tm_E_Tm + b_Tm_E_Tp*b_Tp_H_Tm - b_Tp_H_Tm
+-b_E_Tp_Tm*b_Tm_E_Tp + b_E_Tp_Tm - b_E_Tp_Tp**2 + b_Tp_H_Tp
+-b_E_Tp_Tm*b_E_Tp_Tp - b_E_Tp_Tm*b_Tm_E_Tm + b_Tp_H_Tm
+-b_E_Tp_Tp*b_Tp_F_Tp - b_Tm_E_Tp*b_Tp_F_Tm + b_Tp_F_Tm + b_Tp_H_Tp
+-b_E_Tp_Tm*b_Tp_F_Tp - b_Tm_E_Tm*b_Tp_F_Tm + b_Tp_H_Tm
+-b_E_Tp_Tp*b_Tp_H_Tp + b_E_Tp_Tp - b_Tm_E_Tp*b_Tp_H_Tm - b_Tp_F_Tp + b_Tp_H_Tm - b_Tp_H_Tp*v
+-b_E_Tp_Tm*b_Tp_H_Tp + b_E_Tp_Tm - b_Tm_E_Tm*b_Tp_H_Tm - b_Tp_F_Tm - b_Tp_H_Tm*v
+-b_E_Tp_Tm*b_Tm_Tp_E + b_E_Tp_Tp
+-b_E_Tp_Tm*b_Tm_Tp_F
+-b_E_Tp_Tm*b_Tm_Tp_H + b_E_Tp_Tm - 1
+-b_Tm_E_Tm*b_Tm_Tp_E + b_Tm_E_Tp + b_Tm_Tp_H - 2
+-b_Tm_E_Tm*b_Tm_Tp_F - b_Tm_Tp_H + 1
+-b_Tm_E_Tm*b_Tm_Tp_H + b_Tm_E_Tm + b_Tm_Tp_E + b_Tm_Tp_F - b_Tm_Tp_H*v - u + v
+-b_E_Tp_Tp*b_Tm_E_Tp - b_E_Tp_Tp - b_Tm_E_Tm*b_Tm_E_Tp + b_Tm_E_Tm + b_Tm_H_Tp
+-b_E_Tp_Tm*b_Tm_E_Tp - b_E_Tp_Tm - b_Tm_E_Tm**2 + b_Tm_H_Tm
+-b_E_Tp_Tp*b_F_Tm_Tp - b_F_Tm_Tm*b_Tm_E_Tp + b_F_Tm_Tm + b_Tm_H_Tp - b_Tp_F_Tp
+-b_E_Tp_Tm*b_F_Tm_Tp - b_F_Tm_Tm*b_Tm_E_Tm + b_Tm_H_Tm - b_Tp_F_Tm
+-b_E_Tp_Tp*b_Tm_H_Tp - b_F_Tm_Tp - b_Tm_E_Tp*b_Tm_H_Tm + b_Tm_E_Tp + b_Tm_H_Tm - b_Tm_H_Tp*v - b_Tp_H_Tp
+-b_E_Tp_Tm*b_Tm_H_Tp - b_F_Tm_Tm - b_Tm_E_Tm*b_Tm_H_Tm + b_Tm_E_Tm - b_Tm_H_Tm*v - b_Tp_H_Tm
+b_E_Tp_Tp*b_Tm_Tp_E - b_Tm_Tp_H - 1
+-b_E_Tp_Tm + b_E_Tp_Tp*b_Tm_Tp_F - b_Tm_Tp_F*v + b_Tm_Tp_H
+b_E_Tp_Tp*b_Tm_Tp_H - b_Tm_Tp_E - b_Tm_Tp_F*v**2 - b_Tm_Tp_F
+b_Tm_E_Tp*b_Tm_Tp_E
+-b_Tm_E_Tm + b_Tm_E_Tp*b_Tm_Tp_F - u + v
+b_Tm_E_Tp*b_Tm_Tp_H
+-3*v**2
+-b_E_Tp_Tm*b_F_Tm_Tp + b_Tm_E_Tp*b_Tp_F_Tm - b_Tm_E_Tp - b_Tp_F_Tm - b_Tp_H_Tp
+-b_E_Tp_Tm*b_F_Tm_Tm + b_E_Tp_Tm*b_Tp_F_Tp - b_E_Tp_Tp*b_Tp_F_Tm + b_E_Tp_Tp + b_Tm_E_Tm*b_Tp_F_Tm - b_Tm_E_Tm - b_Tp_H_Tm
+b_E_Tp_Tp*b_F_Tm_Tp + b_F_Tm_Tm*b_Tm_E_Tp - b_F_Tm_Tm - b_F_Tm_Tp*b_Tm_E_Tm - b_Tm_E_Tp*b_Tp_F_Tp - b_Tm_H_Tp + b_Tp_F_Tp
+b_E_Tp_Tm*b_F_Tm_Tp - b_Tm_E_Tp*b_Tp_F_Tm + b_Tm_E_Tp - b_Tm_H_Tm + b_Tp_F_Tm
+-6*v**2
+-b_F_Tm_Tp*b_Tp_H_Tm + b_Tm_H_Tp*b_Tp_F_Tm - b_Tm_H_Tp + 2*b_Tp_F_Tp
+-b_F_Tm_Tm*b_Tp_H_Tm + b_Tm_H_Tm*b_Tp_F_Tm - b_Tm_H_Tm - b_Tp_F_Tm*b_Tp_H_Tp + b_Tp_F_Tp*b_Tp_H_Tm + b_Tp_H_Tp
+b_F_Tm_Tm*b_Tm_H_Tp - b_F_Tm_Tp*b_Tm_H_Tm + b_F_Tm_Tp*b_Tp_H_Tp + 4*b_F_Tm_Tp - b_Tm_H_Tp*b_Tp_F_Tp
+2*b_F_Tm_Tm + b_F_Tm_Tp*b_Tp_H_Tm - b_Tm_H_Tp*b_Tp_F_Tm + b_Tm_H_Tp
+-b_E_Tp_Tm*b_F_Tm_Tp - b_E_Tp_Tp*b_Tp_F_Tp - b_Tm_E_Tp
+-b_E_Tp_Tm*b_F_Tm_Tm - b_E_Tp_Tp*b_Tp_F_Tm + b_E_Tp_Tp - b_Tm_E_Tm
+-b_E_Tp_Tp*v**3 - b_F_Tm_Tp*b_Tp_F_Tm - b_F_Tm_Tp - b_Tp_F_Tp**2 - b_Tp_H_Tp*v**2
+-b_E_Tp_Tm*v**3 - b_F_Tm_Tm*b_Tp_F_Tm - b_F_Tm_Tm - b_Tp_F_Tm*b_Tp_F_Tp + b_Tp_F_Tp - b_Tp_H_Tm*v**2
+-b_F_Tm_Tp*b_Tp_H_Tm - b_Tm_H_Tp - b_Tp_F_Tp*b_Tp_H_Tp + b_Tp_F_Tp - b_Tp_H_Tp*v
+-b_F_Tm_Tm*b_Tp_H_Tm - b_Tm_H_Tm - b_Tp_F_Tm*b_Tp_H_Tp + b_Tp_F_Tm - b_Tp_H_Tm*v + b_Tp_H_Tp
+-b_Tm_Tp_E*b_Tp_F_Tm + b_Tp_F_Tp
+-b_Tm_Tp_F*b_Tp_F_Tm + u - v
+-b_Tm_Tp_H*b_Tp_F_Tm + b_Tp_F_Tm - v**2 - 1
+-b_F_Tm_Tm*b_Tm_Tp_E + b_F_Tm_Tp - b_Tm_Tp_F*v**3 - v**2
+-b_F_Tm_Tm*b_Tm_Tp_F + b_Tm_Tp_H
+-b_F_Tm_Tm*b_Tm_Tp_H + b_F_Tm_Tm - b_Tm_Tp_F*v**2 - b_Tm_Tp_H*v + u + v
+-b_F_Tm_Tp*b_Tm_E_Tm - b_Tm_E_Tp*b_Tp_F_Tp
+-b_F_Tm_Tm*b_Tm_E_Tm - b_Tm_E_Tp*b_Tp_F_Tm + b_Tm_E_Tp
+-b_F_Tm_Tm*b_F_Tm_Tp - b_F_Tm_Tp*b_Tp_F_Tp - b_Tm_E_Tp*v**3 - b_Tm_H_Tp*v**2
+-b_F_Tm_Tm**2 - b_F_Tm_Tp*b_Tp_F_Tm + b_F_Tm_Tp - b_Tm_E_Tm*v**3 - b_Tm_H_Tm*v**2
+-b_F_Tm_Tp*b_Tm_H_Tm + b_F_Tm_Tp - b_Tm_H_Tp*b_Tp_F_Tp - b_Tm_H_Tp*v
+-b_F_Tm_Tm*b_Tm_H_Tm + b_F_Tm_Tm - b_Tm_H_Tm*v - b_Tm_H_Tp*b_Tp_F_Tm + b_Tm_H_Tp
+b_Tm_Tp_E*b_Tp_F_Tp - b_Tm_Tp_H*v**2
+-b_Tm_Tp_E*v + b_Tm_Tp_F*b_Tp_F_Tp - b_Tm_Tp_F*v - b_Tm_Tp_H - b_Tp_F_Tm + 1
+-b_Tm_Tp_E*v**2 + b_Tm_Tp_H*b_Tp_F_Tp
+b_F_Tm_Tp*b_Tm_Tp_E - v**3
+-b_F_Tm_Tm + b_F_Tm_Tp*b_Tm_Tp_F
+b_F_Tm_Tp*b_Tm_Tp_H - v**2
+-3
+-b_E_Tp_Tm*b_Tm_H_Tp - b_E_Tp_Tp + b_Tm_E_Tp*b_Tp_H_Tm - b_Tp_H_Tm
+-b_E_Tp_Tm*b_Tm_H_Tm + b_E_Tp_Tm*b_Tp_H_Tp + b_E_Tp_Tm - b_E_Tp_Tp*b_Tp_H_Tm + b_Tm_E_Tm*b_Tp_H_Tm
+b_E_Tp_Tp*b_Tm_H_Tp - b_Tm_E_Tm*b_Tm_H_Tp + b_Tm_E_Tp*b_Tm_H_Tm - b_Tm_E_Tp*b_Tp_H_Tp - 3*b_Tm_E_Tp - b_Tm_H_Tm + b_Tp_H_Tp + 3
+b_E_Tp_Tm*b_Tm_H_Tp - b_Tm_E_Tm - b_Tm_E_Tp*b_Tp_H_Tm + b_Tp_H_Tm
+-3*v**2
+b_F_Tm_Tp*b_Tp_H_Tm - b_Tm_H_Tp*b_Tp_F_Tm + b_Tm_H_Tp - 2*b_Tp_F_Tp
+b_F_Tm_Tm*b_Tp_H_Tm - b_Tm_H_Tm*b_Tp_F_Tm + b_Tm_H_Tm + b_Tp_F_Tm*b_Tp_H_Tp - b_Tp_F_Tp*b_Tp_H_Tm - b_Tp_H_Tp
+-b_F_Tm_Tm*b_Tm_H_Tp + b_F_Tm_Tp*b_Tm_H_Tm - b_F_Tm_Tp*b_Tp_H_Tp - 4*b_F_Tm_Tp + b_Tm_H_Tp*b_Tp_F_Tp
+-2*b_F_Tm_Tm - b_F_Tm_Tp*b_Tp_H_Tm + b_Tm_H_Tp*b_Tp_F_Tm - b_Tm_H_Tp
+-b_E_Tp_Tm*b_Tm_H_Tp - b_E_Tp_Tp*b_Tp_H_Tp - b_Tp_F_Tp - b_Tp_H_Tp*v
+-b_E_Tp_Tm*b_Tm_H_Tm + 2*b_E_Tp_Tm - b_E_Tp_Tp*b_Tp_H_Tm - b_Tp_F_Tm - b_Tp_H_Tm*v
+-b_Tm_H_Tp*b_Tp_F_Tm - b_Tp_F_Tp*b_Tp_H_Tp - b_Tp_F_Tp - b_Tp_H_Tp*v
+-b_Tm_H_Tm*b_Tp_F_Tm + b_Tp_F_Tm - b_Tp_F_Tp*b_Tp_H_Tm - b_Tp_H_Tm*v
+-b_E_Tp_Tp*v - b_Tm_H_Tp*b_Tp_H_Tm - b_Tp_H_Tp**2 + b_Tp_H_Tp
+-b_E_Tp_Tm*v - b_Tm_H_Tm*b_Tp_H_Tm - b_Tp_H_Tm*b_Tp_H_Tp + 3*b_Tp_H_Tm
+-b_Tm_Tp_E*b_Tp_H_Tm + b_Tp_H_Tp + 2
+-b_Tm_Tp_F*b_Tp_H_Tm + 1
+-b_Tm_Tp_H*b_Tp_H_Tm + b_Tp_H_Tm - u + v
+-b_Tm_H_Tm*b_Tm_Tp_E + b_Tm_H_Tp - b_Tm_Tp_H*v
+-b_Tm_H_Tm*b_Tm_Tp_F - b_Tm_Tp_E - b_Tm_Tp_F
+-b_Tm_H_Tm*b_Tm_Tp_H + b_Tm_H_Tm - b_Tm_Tp_E*v - b_Tm_Tp_F*v + b_Tm_Tp_H - 1
+-b_F_Tm_Tp - b_Tm_E_Tm*b_Tm_H_Tp - b_Tm_E_Tp*b_Tp_H_Tp - 2*b_Tm_E_Tp - b_Tm_H_Tp*v
+-b_F_Tm_Tm - b_Tm_E_Tm*b_Tm_H_Tm - b_Tm_E_Tp*b_Tp_H_Tm - b_Tm_H_Tm*v
+-b_F_Tm_Tm*b_Tm_H_Tp - b_F_Tm_Tp*b_Tp_H_Tp - 3*b_F_Tm_Tp - b_Tm_H_Tp*v
+-b_F_Tm_Tm*b_Tm_H_Tm - b_F_Tm_Tm - b_F_Tm_Tp*b_Tp_H_Tm - b_Tm_H_Tm*v
+-b_Tm_E_Tp*v - b_Tm_H_Tm*b_Tm_H_Tp - b_Tm_H_Tp*b_Tp_H_Tp - b_Tm_H_Tp
+-b_Tm_E_Tm*v - b_Tm_H_Tm**2 + b_Tm_H_Tm - b_Tm_H_Tp*b_Tp_H_Tm
+b_Tm_Tp_E*b_Tp_H_Tp - b_Tm_Tp_F*v**2
+b_Tm_Tp_E + b_Tm_Tp_F*b_Tp_H_Tp + b_Tm_Tp_F - b_Tp_H_Tm
+b_Tm_Tp_H*b_Tp_H_Tp - b_Tm_Tp_H
+b_Tm_H_Tp*b_Tm_Tp_E
+-b_Tm_H_Tm + b_Tm_H_Tp*b_Tm_Tp_F + 1
+b_Tm_H_Tp*b_Tm_Tp_H - u - v
+b_E_Tp_Tm*b_Tm_E_Tp - b_E_Tp_Tm + b_E_Tp_Tp**2 - b_Tp_H_Tp
+b_E_Tp_Tm*b_E_Tp_Tp + b_E_Tp_Tm*b_Tm_E_Tm - b_Tp_H_Tm
+b_E_Tp_Tp*b_Tp_F_Tp + b_Tm_E_Tp*b_Tp_F_Tm - b_Tp_F_Tm - b_Tp_F_Tp*v - b_Tp_H_Tp*v**2 - b_Tp_H_Tp
+b_E_Tp_Tm*b_Tp_F_Tp + b_Tm_E_Tm*b_Tp_F_Tm - b_Tp_F_Tm*v - b_Tp_H_Tm*v**2 - b_Tp_H_Tm
+b_E_Tp_Tp*b_Tp_H_Tp - b_E_Tp_Tp + b_Tm_E_Tp*b_Tp_H_Tm + b_Tp_F_Tp - b_Tp_H_Tm
+b_E_Tp_Tm*b_Tp_H_Tp - b_E_Tp_Tm + b_Tm_E_Tm*b_Tp_H_Tm + b_Tp_F_Tm
+b_E_Tp_Tm*b_Tm_Tp_E - b_E_Tp_Tp
+b_E_Tp_Tm*b_Tm_Tp_F
+b_E_Tp_Tm*b_Tm_Tp_H - b_E_Tp_Tm + 1
+b_Tm_E_Tm*b_Tm_Tp_E - b_Tm_E_Tp - b_Tm_Tp_H + 2
+b_Tm_E_Tm*b_Tm_Tp_F - b_Tm_Tp_F*v + b_Tm_Tp_H - 1
+b_Tm_E_Tm*b_Tm_Tp_H - b_Tm_E_Tm - b_Tm_Tp_E - b_Tm_Tp_F*v**2 - b_Tm_Tp_F + u - v
+b_E_Tp_Tm*b_F_Tm_Tp + b_E_Tp_Tp*b_Tp_F_Tp + b_Tm_E_Tp - b_Tp_F_Tp*v - b_Tp_H_Tp*v**2
+b_E_Tp_Tm*b_F_Tm_Tm + b_E_Tp_Tp*b_Tp_F_Tm - b_E_Tp_Tp + b_Tm_E_Tm - b_Tp_F_Tm*v - b_Tp_H_Tm*v**2
+b_F_Tm_Tp*b_Tp_F_Tm + b_F_Tm_Tp + b_Tp_F_Tp**2 - b_Tp_F_Tp*v
+b_F_Tm_Tm*b_Tp_F_Tm + b_F_Tm_Tm + b_Tp_F_Tm*b_Tp_F_Tp - b_Tp_F_Tm*v - b_Tp_F_Tp
+-b_E_Tp_Tp*v**2 + b_F_Tm_Tp*b_Tp_H_Tm + b_Tm_H_Tp + b_Tp_F_Tp*b_Tp_H_Tp - b_Tp_F_Tp
+-b_E_Tp_Tm*v**2 + b_F_Tm_Tm*b_Tp_H_Tm + b_Tm_H_Tm + b_Tp_F_Tm*b_Tp_H_Tp - b_Tp_F_Tm - b_Tp_H_Tp
+b_Tm_Tp_E*b_Tp_F_Tm - b_Tp_F_Tp
+b_Tm_Tp_F*b_Tp_F_Tm - u + v
+b_Tm_Tp_H*b_Tp_F_Tm - b_Tp_F_Tm + 1
+b_F_Tm_Tm*b_Tm_Tp_E - b_F_Tm_Tp - b_Tm_Tp_H*v**2
+b_F_Tm_Tm*b_Tm_Tp_F - b_Tm_Tp_E*v - b_Tm_Tp_F*v - b_Tm_Tp_H
+b_F_Tm_Tm*b_Tm_Tp_H - b_F_Tm_Tm - b_Tm_Tp_E*v**2 - u - v
+b_E_Tp_Tm*b_Tm_H_Tp + b_E_Tp_Tp*b_Tp_H_Tp + b_Tp_F_Tp
+b_E_Tp_Tm*b_Tm_H_Tm - 2*b_E_Tp_Tm + b_E_Tp_Tp*b_Tp_H_Tm + b_Tp_F_Tm
+-b_E_Tp_Tp*v**2 + b_Tm_H_Tp*b_Tp_F_Tm + b_Tp_F_Tp*b_Tp_H_Tp + b_Tp_F_Tp
+-b_E_Tp_Tm*v**2 + b_Tm_H_Tm*b_Tp_F_Tm - b_Tp_F_Tm + b_Tp_F_Tp*b_Tp_H_Tm
+b_Tm_H_Tp*b_Tp_H_Tm + b_Tp_H_Tp**2 - b_Tp_H_Tp
+b_Tm_H_Tm*b_Tp_H_Tm + b_Tp_H_Tm*b_Tp_H_Tp - 3*b_Tp_H_Tm
+b_Tm_Tp_E*b_Tp_H_Tm - b_Tp_H_Tp - 2
+b_Tm_Tp_F*b_Tp_H_Tm - 1
+b_Tm_Tp_H*b_Tp_H_Tm - b_Tp_H_Tm + u - v
+b_Tm_H_Tm*b_Tm_Tp_E - b_Tm_H_Tp - b_Tm_Tp_F*v**2 - v
+b_Tm_H_Tm*b_Tm_Tp_F + b_Tm_Tp_E + b_Tm_Tp_F
+b_Tm_H_Tm*b_Tm_Tp_H - b_Tm_H_Tm - b_Tm_Tp_H + 1
+2*b_E_Tp_Tm*b_Tm_Tp_E - 2*b_E_Tp_Tp
+2*b_E_Tp_Tm*b_Tm_Tp_F
+2*b_E_Tp_Tm*b_Tm_Tp_H - 2*b_E_Tp_Tm + 2
+2*b_Tm_Tp_E*b_Tp_F_Tm - 2*b_Tp_F_Tp
+2*b_Tm_Tp_F*b_Tp_F_Tm
+2*b_Tm_Tp_H*b_Tp_F_Tm - 2*b_Tp_F_Tm + 2
+2*b_Tm_Tp_E*b_Tp_H_Tm - 2*b_Tp_H_Tp + 2
+2*b_Tm_Tp_F*b_Tp_H_Tm - 2
+2*b_Tm_Tp_H*b_Tp_H_Tm - 2*b_Tp_H_Tm - 2*v
+2*b_E_Tp_Tp*b_Tm_Tp_E + 2*b_Tm_E_Tp + 2*b_Tm_Tp_F*b_Tp_F_Tp + 2*b_Tm_Tp_H*b_Tp_H_Tp - 2*b_Tp_H_Tp - 2
+2*b_E_Tp_Tm*b_Tm_Tp_E + 2*b_Tm_E_Tm + 2*b_Tm_Tp_F*b_Tp_F_Tm + 2*b_Tm_Tp_H*b_Tp_H_Tm - 2*b_Tp_H_Tm
+-b_E_Tp_Tp*b_Tm_Tp_E + b_Tm_E_Tm*b_Tm_Tp_E - b_Tm_E_Tp
+b_E_Tp_Tm - b_E_Tp_Tp*b_Tm_Tp_F + b_Tm_E_Tm*b_Tm_Tp_F - 1
+-b_E_Tp_Tp*b_Tm_Tp_H + b_Tm_E_Tm*b_Tm_Tp_H - b_Tm_E_Tm + u - v
+b_F_Tm_Tm*b_Tm_Tp_E - b_F_Tm_Tp - b_Tm_Tp_E*b_Tp_F_Tp
+b_F_Tm_Tm*b_Tm_Tp_F - b_Tm_Tp_F*b_Tp_F_Tp + b_Tp_F_Tm - 1
+b_F_Tm_Tm*b_Tm_Tp_H - b_F_Tm_Tm - b_Tm_Tp_H*b_Tp_F_Tp - u - v
+b_Tm_H_Tm*b_Tm_Tp_E - b_Tm_H_Tp - b_Tm_Tp_E*b_Tp_H_Tp - v
+b_Tm_H_Tm*b_Tm_Tp_F - b_Tm_Tp_F*b_Tp_H_Tp + b_Tp_H_Tm
+b_Tm_H_Tm*b_Tm_Tp_H - b_Tm_H_Tm - b_Tm_Tp_H*b_Tp_H_Tp + 1
+-b_E_Tp_Tp*b_Tm_Tp_E - b_Tm_E_Tp - b_Tm_Tp_F*b_Tp_F_Tp - b_Tm_Tp_H*b_Tp_H_Tp + b_Tp_H_Tp + 1
+-b_E_Tp_Tm*b_Tm_Tp_E - b_Tm_E_Tm - b_Tm_Tp_F*b_Tp_F_Tm - b_Tm_Tp_H*b_Tp_H_Tm + b_Tp_H_Tm
+b_F_Tm_Tp*b_Tm_Tp_F + b_Tm_E_Tp*b_Tm_Tp_E + b_Tm_H_Tp*b_Tm_Tp_H + b_Tp_F_Tp
+b_F_Tm_Tm*b_Tm_Tp_F + b_Tm_E_Tm*b_Tm_Tp_E + b_Tm_H_Tm*b_Tm_Tp_H + b_Tp_F_Tm - 1
+b_E_Tp_Tp*b_Tm_E_Tp + b_E_Tp_Tp + b_Tm_E_Tm*b_Tm_E_Tp - b_Tm_E_Tm - b_Tm_H_Tp
+b_E_Tp_Tm*b_Tm_E_Tp + b_E_Tp_Tm + b_Tm_E_Tm**2 - b_Tm_H_Tm
+b_E_Tp_Tp*b_F_Tm_Tp + b_F_Tm_Tm*b_Tm_E_Tp - b_F_Tm_Tm - b_F_Tm_Tp*v - b_Tm_H_Tp*v**2 - b_Tm_H_Tp + b_Tp_F_Tp
+b_E_Tp_Tm*b_F_Tm_Tp + b_F_Tm_Tm*b_Tm_E_Tm - b_F_Tm_Tm*v - b_Tm_H_Tm*v**2 - b_Tm_H_Tm + b_Tp_F_Tm
+b_E_Tp_Tp*b_Tm_H_Tp + b_F_Tm_Tp + b_Tm_E_Tp*b_Tm_H_Tm - b_Tm_E_Tp - b_Tm_H_Tm + b_Tp_H_Tp
+b_E_Tp_Tm*b_Tm_H_Tp + b_F_Tm_Tm + b_Tm_E_Tm*b_Tm_H_Tm - b_Tm_E_Tm + b_Tp_H_Tm
+-b_E_Tp_Tp*b_Tm_Tp_E + b_Tm_Tp_H + 1
+b_E_Tp_Tm - b_E_Tp_Tp*b_Tm_Tp_F - b_Tm_Tp_H
+-b_E_Tp_Tp*b_Tm_Tp_H + b_Tm_Tp_E + b_Tm_Tp_F - b_Tm_Tp_H*v
+-b_Tm_E_Tp*b_Tm_Tp_E
+b_Tm_E_Tm - b_Tm_E_Tp*b_Tm_Tp_F + u - v
+-b_Tm_E_Tp*b_Tm_Tp_H - v**2
+b_F_Tm_Tp*b_Tm_E_Tm - b_F_Tm_Tp*v + b_Tm_E_Tp*b_Tp_F_Tp - b_Tm_H_Tp*v**2
+b_F_Tm_Tm*b_Tm_E_Tm - b_F_Tm_Tm*v + b_Tm_E_Tp*b_Tp_F_Tm - b_Tm_E_Tp - b_Tm_H_Tm*v**2
+b_F_Tm_Tm*b_F_Tm_Tp + b_F_Tm_Tp*b_Tp_F_Tp - b_F_Tm_Tp*v
+b_F_Tm_Tm**2 - b_F_Tm_Tm*v + b_F_Tm_Tp*b_Tp_F_Tm - b_F_Tm_Tp
+b_F_Tm_Tp*b_Tm_H_Tm - b_F_Tm_Tp - b_Tm_E_Tp*v**2 + b_Tm_H_Tp*b_Tp_F_Tp
+b_F_Tm_Tm*b_Tm_H_Tm - b_F_Tm_Tm - b_Tm_E_Tm*v**2 + b_Tm_H_Tp*b_Tp_F_Tm - b_Tm_H_Tp
+-b_Tm_Tp_E*b_Tp_F_Tp - b_Tm_Tp_F*v**3
+-b_Tm_Tp_F*b_Tp_F_Tp + b_Tm_Tp_H + b_Tp_F_Tm - 1
+-b_Tm_Tp_F*v**2 - b_Tm_Tp_H*b_Tp_F_Tp - b_Tm_Tp_H*v
+-b_F_Tm_Tp*b_Tm_Tp_E
+b_F_Tm_Tm - b_F_Tm_Tp*b_Tm_Tp_F - v
+-b_F_Tm_Tp*b_Tm_Tp_H
+b_F_Tm_Tp + b_Tm_E_Tm*b_Tm_H_Tp + b_Tm_E_Tp*b_Tp_H_Tp + 2*b_Tm_E_Tp
+b_F_Tm_Tm + b_Tm_E_Tm*b_Tm_H_Tm + b_Tm_E_Tp*b_Tp_H_Tm
+b_F_Tm_Tm*b_Tm_H_Tp + b_F_Tm_Tp*b_Tp_H_Tp + 3*b_F_Tm_Tp - b_Tm_E_Tp*v**2
+b_F_Tm_Tm*b_Tm_H_Tm + b_F_Tm_Tm + b_F_Tm_Tp*b_Tp_H_Tm - b_Tm_E_Tm*v**2
+b_Tm_H_Tm*b_Tm_H_Tp + b_Tm_H_Tp*b_Tp_H_Tp + b_Tm_H_Tp
+b_Tm_H_Tm**2 - b_Tm_H_Tm + b_Tm_H_Tp*b_Tp_H_Tm
+-b_Tm_Tp_E*b_Tp_H_Tp - b_Tm_Tp_H*v
+-b_Tm_Tp_E - b_Tm_Tp_F*b_Tp_H_Tp - b_Tm_Tp_F + b_Tp_H_Tm
+-b_Tm_Tp_E*v - b_Tm_Tp_F*v - b_Tm_Tp_H*b_Tp_H_Tp + b_Tm_Tp_H
+-b_Tm_H_Tp*b_Tm_Tp_E - v**2
+b_Tm_H_Tm - b_Tm_H_Tp*b_Tm_Tp_F - 1
+-b_Tm_H_Tp*b_Tm_Tp_H + u + v
+-2*b_Tm_E_Tp*b_Tm_Tp_E
+2*b_Tm_E_Tm - 2*b_Tm_E_Tp*b_Tm_Tp_F - 2*v
+-2*b_Tm_E_Tp*b_Tm_Tp_H - 2*v**2
+-2*b_F_Tm_Tp*b_Tm_Tp_E
+2*b_F_Tm_Tm - 2*b_F_Tm_Tp*b_Tm_Tp_F - 2*v
+-2*b_F_Tm_Tp*b_Tm_Tp_H
+-2*b_Tm_H_Tp*b_Tm_Tp_E - 2*v**2
+2*b_Tm_H_Tm - 2*b_Tm_H_Tp*b_Tm_Tp_F - 2
+-2*b_Tm_H_Tp*b_Tm_Tp_H
+-2*b_F_Tm_Tp*b_Tm_Tp_F - 2*b_Tm_E_Tp*b_Tm_Tp_E - 2*b_Tm_H_Tp*b_Tm_Tp_H - 2*b_Tp_F_Tp
+-2*b_F_Tm_Tm*b_Tm_Tp_F - 2*b_Tm_E_Tm*b_Tm_Tp_E - 2*b_Tm_H_Tm*b_Tm_Tp_H - 2*b_Tp_F_Tm + 2
