@@ -1,6 +1,0 @@
-Fix parameter tau10 results field=QQ
-Value -2 --> consistent: False
-Value -1 --> consistent: False
-Value 0 --> consistent: False
-Value 1 --> consistent: False
-Value 2 --> consistent: False
