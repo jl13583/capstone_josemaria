@@ -1,4 +1,5 @@
 import sympy as sp
+import os
 import random 
 from textwrap import shorten
 from lss_1_op import assoc as assoc_lss1
@@ -605,8 +606,23 @@ polys = [p for p in polys]  # list of SymPy expressions representing polynomial 
 print("Total nontrivial scalar polynomials (polys):", len(polys))
 
 # --- unknowns2: the free parameters not fixed by sol0 ---
-unknowns2 = sorted([s for s in set(beta.values()) if s not in sol0], key=str)
+# IMPORTANT: Burde's matrices contain bare parameter symbols (u, v for structure 1;
+# g, ginv for structure 2) as matrix entries, which end up as values in beta.
+# These must be excluded — they are known parameters, not unknowns.
+if structure_version == 1:
+    _param_syms = {sp.Symbol('u'), sp.Symbol('v')}
+elif structure_version == 2:
+    _param_syms = {sp.Symbol('g'), sp.Symbol('ginv')}
+else:
+    _param_syms = set()
+
+unknowns2 = sorted(
+    [s for s in set(beta.values()) 
+     if s not in sol0 and isinstance(s, sp.Symbol) and s not in _param_syms],
+    key=str
+)
 print("Free unknowns (count):", len(unknowns2))
+print("Free unknowns:", [str(s) for s in unknowns2])
 
 # Substituting ginv back to 1/g in polynomials if structure_version == 2
 if structure_version == 2:
@@ -633,57 +649,35 @@ for p in polys:
 print("Linear polys:", len(linear_polys))
 print("Nonlinear polys:", len(nonlinear_polys))
 
-# --- Solve linear part (symbolically) ---
+# --- Solve linear part (symbolically using sp.solve to preserve b variable names) ---
+# NOTE: We use sp.solve instead of linsolve because linsolve introduces
+# tau0, tau1, ... symbols for free parameters. sp.solve returns a dict
+# {b_solved: expr_in_other_b_vars} which keeps the original variable names.
 lin_subs = {}
 if linear_polys:
-    # Converting to matrix form A x = b  (we want A x = -const)
-    # Move constants to RHS: poly == 0  -> coeffs * unknowns + const = 0
-    A, bvec = sp.linear_eq_to_matrix([sp.Eq(p, 0) for p in linear_polys], unknowns2)
-    A = sp.Matrix(A); bvec = sp.Matrix(bvec)
-    print("Linear matrix shape:", A.shape)
-    # Use linsolve (gives parametric solution)
-    lin_solution = sp.linsolve((A, bvec))
+    print(f"Solving {len(linear_polys)} linear equations for {len(unknowns2)} unknowns...")
+    lin_sol = sp.solve([sp.Eq(p, 0) for p in linear_polys], unknowns2, dict=True, simplify=True)
     
-    # --------------------------------------------
-    # === Capturing tau parameters and mapping ===
-    # --------------------------------------------
-    
-if lin_solution:
-    sol_tuple = next(iter(lin_solution))
-    # Free parameters (Sympy names them tau0, tau1, ...)
-    tau_syms = sorted(list({s for expr in sol_tuple for s in expr.free_symbols if str(s).startswith("tau")}), key=str)
-    tau_map = {tau: [] for tau in tau_syms}
-
-    for symb, expr in zip(unknowns2, sol_tuple):
-        for tau in tau_syms:
-            if tau in expr.free_symbols:
-                tau_map[tau].append(symb)
-
-    print("\n=== Extracted τ ↔ b_{X,Y,Z} mapping (from linear solver) ===")
-    for tau, coeffs in tau_map.items():
-        print(f"{tau} ↔ {', '.join(map(str, coeffs))}")
-
-    # Export mapping of taus to coefficients to text file
-    # with open("/Users/josemarialoza/capstone/tau_mapping.txt", "w") as f:
-    #     f.write("τ ↔ b_{X,Y,Z} mapping (from linear solver)\n")
-    #     f.write("==========================================\n\n")
-    #     for tau, coeffs in tau_map.items():
-    #         f.write(f"{tau} : {', '.join(map(str, coeffs))}\n")
-    # print("Mapping exported successfully to tau_mapping.txt")
-    # --------------------------------------------
-    
-    if len(lin_solution) == 0:
-        print("No linear solution (inconsistent linear subsystem).")
+    if lin_sol:
+        lin_subs = lin_sol[0]  # dict: {b_solved: expr in remaining free b's and params}
+        print(f"Linear subsystem solved: {len(lin_subs)} variables expressed in terms of others.")
+        
+        # Show the solved variables
+        print("\n=== Linear reduction (solved b variables) ===")
+        for k, v in sorted(lin_subs.items(), key=lambda x: str(x[0])):
+            print(f"  {k} = {v}")
+        
+        # Identify remaining free b variables
+        solved_vars = set(lin_subs.keys())
+        free_b_vars = sorted([s for s in unknowns2 if s not in solved_vars], key=str)
+        print(f"\nFree b variables after linear reduction: {len(free_b_vars)}")
+        print(f"  {[str(s) for s in free_b_vars]}")
     else:
-        sol_tuple = next(iter(lin_solution))  # tuple of expressions possibly containing parameters
-        # build substitution mapping unknown->expr
-        for symb, expr in zip(unknowns2, sol_tuple):
-            lin_subs[symb] = sp.simplify(expr)
-        print("Linear subsystem solved (parametric).")
-else:
-    print("No linear subsystem found.")
-
+        print("No linear solution (inconsistent linear subsystem or no equations).")
+    
+# -------------------------------------------------------
 # --- Substitute linear solution into nonlinear polys ---
+# -------------------------------------------------------
 if lin_subs:
     reduced_polys = [sp.simplify(p.subs(lin_subs)) for p in nonlinear_polys]
 else:
@@ -892,44 +886,77 @@ if structure_version == 2:
 #try_fix_parameter('b_Tp_H_Tm', field='QQ', tau_map=None, rewrite_map=None, unknowns=unknowns2, polys=reduced_polys, g=g, ginv=ginv)
 
 # --- Trying Groebner Solver ---:
-use_char3 = True   # set to True if working over GF(3) or sp.EX; otherwise False for QQ
+# We use reduced_polys (after linear pre-reduction) for performance,
+# and recompute the variable lists from the actual free symbols present
+# in reduced_polys. Since we used sp.solve (not linsolve), all variables
+# are still in b_X_Y_Z form — no tau symbols.
+
+use_char3 = True   # set to True if working over GF(3); otherwise False for QQ
     
 if reduced_polys:
+    # --- Recompute unknowns and params from actual free symbols in reduced_polys ---
+    all_free = sorted(
+        set().union(*[f.free_symbols for f in reduced_polys]),
+        key=lambda s: s.name
+    )
+    
+    if structure_version == 1:
+        param_names = {'u', 'v'}
+    elif structure_version == 2:
+        param_names = {'g', 'ginv'}
+    else:
+        param_names = set()
+    
+    # unknowns: b_X_Y_Z symbols only
+    gb_unknowns = [s for s in all_free if s.name not in param_names]
+    # parameters: u,v or g,ginv
+    gb_params = [s for s in all_free if s.name in param_names]
+    
+    # For structure 2: preprocess_polys_in_char_p will add g*ginv - 1, so both
+    # g and ginv MUST be in gens_all even if one is absent from reduced_polys.
+    # (e.g., if all g terms were eliminated during linear reduction, but ginv remains,
+    # the invertibility relation still needs g as a ring generator.)
+    if structure_version == 2:
+        gb_param_names = {s.name for s in gb_params}
+        if 'g' not in gb_param_names:
+            gb_params.append(g)
+        if 'ginv' not in gb_param_names:
+            gb_params.append(ginv)
+        gb_params = sorted(gb_params, key=lambda s: s.name)
+    
+    # Put unknowns first for lex order elimination behavior
+    gens_all = gb_unknowns + gb_params
+    
+    print(f"\nGroebner computation setup:")
+    print(f"  Unknowns ({len(gb_unknowns)}): {[s.name for s in gb_unknowns]}")
+    print(f"  Parameters ({len(gb_params)}): {[s.name for s in gb_params]}")
+    print(f"  Total ring generators: {len(gens_all)}")
+    print(f"  Total polynomials: {len(reduced_polys)}")
+
     if use_char3:
         print("\nReducing coefficients mod 3 and computing Groebner basis over GF(3)...")
 
-        # IMPORTANT: include parameters as polynomial indeterminates too,
-        # so they are NOT treated as coefficients in a char-0 domain.
-        params = sorted(
-        set().union(*[f.free_symbols for f in reduced_polys]) - set(unknowns2),
-        key=lambda s: s.name
-        )
-
-        # Put unknowns first for lex order elimination behavior
-        gens_all = list(unknowns2) + list(params)
-
         try:
             if structure_version == 1:
-                # Structure 1: polynomial system (no inverses)
-                polys_for_gb = reduced_polys
-                reduced_polys_mod3 = preprocess_polys_in_char_p(polys_for_gb, 3, gens_all, invert_pairs=None)
+                polys_for_gb = list(reduced_polys)
+                polys_mod3 = preprocess_polys_in_char_p(polys_for_gb, 3, gens_all, invert_pairs=None)
 
             elif structure_version == 2:
-                polys_for_gb = list(reduced_polys)  # don't manually add g*ginv-1 here anymore
-                reduced_polys_mod3 = preprocess_polys_in_char_p(polys_for_gb, 3, gens_all, invert_pairs=[(g, ginv)])
+                polys_for_gb = list(reduced_polys) 
+                polys_mod3 = preprocess_polys_in_char_p(polys_for_gb, 3, gens_all, invert_pairs=[(g, ginv)])
                 
             else:
                 raise ValueError("Unknown structure; expected 1 or 2")
             
-            for i, p in enumerate(reduced_polys_mod3):
+            # Sanity check: no remaining denominators
+            for i, p in enumerate(polys_mod3):
                 num, den = sp.fraction(sp.together(p))
                 if den != 1:
-                    print("Still has denominator:", den, "in equation", i)
-                    print("Equation:", p)
+                    print(f"WARNING: denominator {den} in equation {i}: {p}")
                     break
             
-            # Use modulus=3 (this is the key change)
-            G = groebner(reduced_polys_mod3, *gens_all, order='lex', domain=sp.GF(3), method='buchberger')
+            # Compute Groebner basis over GF(3)
+            G = groebner(polys_mod3, *gens_all, order='lex', domain=sp.GF(3), method='buchberger')
 
             print("Groebner basis size:", len(G))
             inconsistent = any(gb == 1 for gb in G)
@@ -942,10 +969,66 @@ if reduced_polys:
     else:
         print("\nComputing Groebner basis over QQ ...")
         try:
-            G = groebner(reduced_polys, *unknowns2, order='lex', domain=sp.QQ, method='buchberger')
+            G = groebner(reduced_polys, *gens_all, order='lex', domain=sp.EX, method='buchberger')
             print("Groebner basis size:", len(G))
+            print(G)
         except Exception as e:
             print("Groebner(QQ) failed:", e)
+
+#----------------------------------------------------------------------------------------------------        
+# --- Exporting polynomials for SageMath verification ---
+#----------------------------------------------------------------------------------------------------
+
+# Since we use sp.solve (not linsolve), all variables remain in b_X_Y_Z form.
+# No tau → b rewriting is needed. We export polys_mod3 directly.
+
+print("\n=== Exporting polynomials for SageMath ===")
+
+# Use polys_mod3 from the Groebner block if available, otherwise reduced_polys
+if 'polys_mod3' in dir() and polys_mod3:
+    polys_for_export = polys_mod3
+elif reduced_polys:
+    polys_for_export = reduced_polys
+else:
+    polys_for_export = polys
+
+# Collect free symbols
+all_free_syms = sorted(
+    set().union(*[p.free_symbols for p in polys_for_export]),
+    key=lambda s: s.name
+)
+
+print(f"Free symbols present: {[str(s) for s in all_free_syms]}")
+
+if structure_version == 1:
+    param_syms   = [s for s in all_free_syms if str(s) in ('u', 'v')]
+    unknown_syms = [s for s in all_free_syms if str(s) not in ('u', 'v')]
+elif structure_version == 2:
+    param_syms   = [s for s in all_free_syms if str(s) in ('g', 'ginv')]
+    unknown_syms = [s for s in all_free_syms if str(s) not in ('g', 'ginv')]
+
+var_names_export = [str(s) for s in param_syms + unknown_syms]
+
+print(f"Parameters ({len(param_syms)}):  {[str(s) for s in param_syms]}")
+print(f"Unknowns  ({len(unknown_syms)}): {[str(s) for s in unknown_syms]}")
+print(f"Total ring variables for Sage: {len(var_names_export)}")
+
+# --- Export ---
+export_path = f'/Users/josemarialoza/capstone/polys_files_sage/polys_for_sage_lss{structure_version}.py'
+with open(export_path, 'w') as f:
+    f.write(f"# Auto-generated for SageMath — Structure {structure_version}\n")
+    f.write(f"# All variables in b_X_Y_Z form (no tau symbols).\n")
+    f.write(f"# Parameters: {[str(s) for s in param_syms]}\n")
+    f.write(f"# Unknowns:   {[str(s) for s in unknown_syms]}\n\n")
+    f.write(f"var_names = {repr(var_names_export)}\n\n")
+    f.write("polys_raw = [\n")
+    for p in polys_for_export:
+        f.write(f"    {repr(str(p))},\n")
+    f.write("]\n")
+
+print(f"\nExported to {export_path}")
+
+#----------------------------------------------------------------------------------------------------
             
 # --- Fallback: try randomized finite-field search if GF(3) and number of free vars smallish ---
 if use_char3 and reduced_polys:
@@ -1040,3 +1123,7 @@ for i, factors in enumerate(factor_sets[:5]):  # print first 10
 print("\nSample unknowns2 (b variables):")
 for u in unknowns2[:10]:  # print first 10
     print("   ", u)
+    
+print(f"\n=== Structure {structure_version}: Sample reduced polynomials ===")
+for i, p in enumerate(reduced_polys[:10]):
+    print(f"  [{i}] {sp.expand(p)}")

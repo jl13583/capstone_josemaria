@@ -1,4 +1,0 @@
-Fix parameter tau17 results field=GF3
-Value 0 --> consistent: False
-Value 1 --> consistent: False
-Value 2 --> consistent: False
