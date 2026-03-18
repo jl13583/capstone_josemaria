@@ -1,6 +1,0 @@
-Fix parameter b_Tp_H_Tm results field=QQ
-Value -2 --> consistent: False
-Value -1 --> consistent: False
-Value 0 --> consistent: False
-Value 1 --> consistent: False
-Value 2 --> consistent: False
