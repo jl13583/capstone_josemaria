@@ -228,9 +228,13 @@ pairs_seen = set()
 
 for x in even+odd:
     for y in even+odd:
-        # Skip pairs with trivial bracket
-        if bracket[(x,y)] == {}:
+        # Skip even-even pairs (handled by Burde's structures)
+        if x in even and y in even: 
             continue
+        
+        # Skip pairs with trivial bracket
+        # if bracket[(x,y)] == {}:
+        #     continue
 
         # Avoid redundant opposite pairs (since [x,y] = -(-1)^{|x||y|}[y,x])
         if (y,x) in pairs_seen:
@@ -258,9 +262,9 @@ for x in even+odd:
 eqs = [sp.simplify(e) for e in eqs] 
 
 # Printing unordered pairs for verification 
-print("\nGenerated equations for the following generator pairs:")
-for (x,y) in pairs: 
-    print(f"    Pair {x, y} --> scalar eqs: {len(gens)}  (components: {gens})")
+# print("\nGenerated equations for the following generator pairs:")
+# for (x,y) in pairs: 
+#     print(f"    Pair {x, y} --> scalar eqs: {len(gens)}  (components: {gens})")
     
 print(f"\nNumber of equations: {len(eqs)}")
 print(f"Number of unknowns: {len(unknowns)}")
@@ -294,7 +298,7 @@ sol0 = solution[0]   # dictionary mapping some unknowns -> expressions (possibly
 
 # 1) Determine free symbols (those in unknowns not solved for directly)
 sol_keys = set(sol0.keys())
-free_syms = [u for u in unknowns if u not in sol_keys]
+free_syms = [s for s in unknowns if s not in sol_keys]
 
 print("Num unknowns:", len(unknowns))
 print("Num solved symbols:", len(sol_keys))
@@ -394,8 +398,10 @@ def run_spot_tests(num_trials=10, rng_seed=0, modp=None):
         bad_count = 0
         for x in gens:
             for y in gens:
-                if bracket[(x,y)] == {}:
-                    continue
+                # if bracket[(x,y)] == {}:
+                #     continue
+                if x in even and y in even:
+                    continue    
                 resid = lhs_minus_rhs_for_pair(x,y, full)
                 # For parity, only some z will be relevant: target keys + whatever lhs produced
                 # Check that all residuals are zero (or zero mod p if modp provided)
@@ -425,7 +431,9 @@ full0 = build_full_substitution({s:0 for s in free_syms})
 fails = 0
 for x in gens:
     for y in gens:
-        if bracket[(x,y)] == {}:
+        # if bracket[(x,y)] == {}:
+        #     continue
+        if x in even and y in even:
             continue
         r = lhs_minus_rhs_for_pair(x,y, full0)
         if any(v != 0 for v in r.values()):
@@ -483,17 +491,17 @@ def assoc_sym(x, y, z):
     xy = star_sym(x, y)
     yz = star_sym(y, z)
 
-    term1 = {u: 0 for u in even+odd}
+    term1 = {w_: 0 for w_ in even+odd}
     for t,c in xy.items():
-        for u,val in star_sym(t, z).items():
-            term1[u] += c*val
+        for w_,val in star_sym(t, z).items():
+            term1[w_] += c*val
 
-    term2 = {u: 0 for u in even+odd}
+    term2 = {w_: 0 for w_ in even+odd}
     for t,c in yz.items():
-        for u,val in star_sym(x, t).items():
-            term2[u] += c*val
+        for w_,val in star_sym(x, t).items():
+            term2[w_] += c*val
 
-    return {u: sp.simplify(term1[u] - term2[u]) for u in gens}
+    return {w_: sp.simplify(term1[w_] - term2[w_]) for w_ in gens}
 
 eqs2 = []
 for x in even+odd:
@@ -502,8 +510,8 @@ for x in even+odd:
             sign_xy = (-1)**(parity[x]*parity[y])
             a1 = assoc_sym(x, y, z)
             a2 = assoc_sym(y, x, z)
-            for u in gens:
-                eq = sp.Eq(sp.simplify(a1[u] - sign_xy*a2[u]), 0)
+            for w_ in gens:
+                eq = sp.Eq(sp.simplify(a1[w_] - sign_xy*a2[w_]), 0)
                 if isinstance(eq, sp.Equality):
                     if not sp.simplify(eq.lhs - eq.rhs) == 0:
                         eqs2.append(eq)
@@ -516,7 +524,18 @@ print(f"Total graded LSS equations generated: {len(eqs2)}")
 eqs2 = list({str(e): e for e in eqs2}.values())
 
 # Solve for the free parameters symbolically
-unknowns2 = list(set(s for s in beta.values() if s not in sol0))
+if structure_version == 1:
+    _param_syms_stage2 = {sp.Symbol('u'), sp.Symbol('v')}
+elif structure_version == 2:
+    _param_syms_stage2 = {sp.Symbol('g'), sp.Symbol('ginv')}
+else:
+    _param_syms_stage2 = set()
+
+unknowns2 = sorted(
+    [s for s in set(beta.values())
+    if s not in sol0 and isinstance(s, sp.Symbol) and s not in _param_syms_stage2],
+    key=str
+)
 sol2 = sp.solve(eqs2, unknowns2, dict=True, simplify=True)
 
 print(f"\nNumber of unknowns in Stage 2: {len(unknowns2)}")
@@ -541,7 +560,7 @@ for x in gens:
             sign_xy = (-1)**(parity[x]*parity[y])
             a1 = assoc_sym(x, y, z)
             a2 = assoc_sym(y, x, z)
-            diff = {u: sp.simplify(a1[u] - sign_xy*a2[u]) for u in gens}
+            diff = {s: sp.simplify(a1[s] - sign_xy*a2[s]) for s in gens}
 
             # Filter: show only if some components are nonzero
             if any(v != 0 for v in diff.values()):
@@ -618,7 +637,7 @@ else:
 
 unknowns2 = sorted(
     [s for s in set(beta.values()) 
-     if s not in sol0 and isinstance(s, sp.Symbol) and s not in _param_syms],
+    if s not in sol0 and isinstance(s, sp.Symbol) and s not in _param_syms],
     key=str
 )
 print("Free unknowns (count):", len(unknowns2))
@@ -635,7 +654,7 @@ for p in polys:
     if unknowns2:
         # exclude 'g' only if structure_version == 2
         if structure_version == 2:
-            polyobj = sp.Poly(sp.expand(p), *[u for u in unknowns2 if u != g], domain=sp.EX)
+            polyobj = sp.Poly(sp.expand(p), *[w_ for w_ in unknowns2 if w_ != g], domain=sp.EX)
         else: 
             polyobj = sp.Poly(sp.expand(p), *unknowns2, domain=sp.EX)
         deg = polyobj.total_degree()
@@ -843,7 +862,7 @@ def try_fix_parameter(param_name, candidates=None, field='QQ', tau_map=None, rew
         polys_spec = [sp.expand(p.subs(subs)) for p in polys_b]
         
         # ensure no stray extra symbols remain other than the unknowns; record what is leftover
-        leftover = sorted({str(s) for p in polys_spec for s in p.free_symbols if str(s) not in {str(u) for u in unknowns}})
+        leftover = sorted({str(s) for p in polys_spec for s in p.free_symbols if str(s) not in {str(w) for w in unknowns}})
         
         print(f"\nTrying {param_name} = {v} (leftover symbols after substituting: {len(leftover)} ; sample: {leftover[:10]})")
         
@@ -1031,46 +1050,46 @@ print(f"\nExported to {export_path}")
 #----------------------------------------------------------------------------------------------------
             
 # --- Fallback: try randomized finite-field search if GF(3) and number of free vars smallish ---
-if use_char3 and reduced_polys:
-    K = len(unknowns2)
-    if K <= 12:
-        import itertools
-        print("\nAttempting exhaustive search over GF(3) (this may be slow if K>10)")
-        found = False
-        for vals in itertools.product(range(3), repeat=K):
-            subs = {sym: sp.Integer(v) for sym, v in zip(unknowns2, vals)}
-            ok = True
-            for p in reduced_polys:
-                val = sp.expand(p.subs(subs))  
-                val_mod3 = sp.Mod(val, 3)
-                if sp.simplify(val_mod3) != 0:
-                    ok = False
-                    break
-            if ok:
-                print("Found GF(3) solution:", subs)
-                found = True
-                break
-        if not found:
-            print("No GF(3) solution found by exhaustive search.")
-    else:
-        print("K too large for brute force; try random trials with limited budget.")
-        import random
-        found = False
-        for t in range(500):
-            subs = {sym: random.randint(0,2) for sym in unknowns2}
-            ok = True
-            for p in reduced_polys:
-                val = sp.expand(p.subs(subs))
-                val_mod3 = sp.Mod(val, 3)
-                if sp.simplify(val_mod3) != 0:
-                    ok = False
-                    break
-            if ok:
-                print("Random GF(3) solution found:", subs)
-                found = True
-                break
-        if not found:
-            print("No random GF(3) solution found in 500 trials.")
+# if use_char3 and reduced_polys:
+#     K = len(unknowns2)
+#     if K <= 12:
+#         import itertools
+#         print("\nAttempting exhaustive search over GF(3) (this may be slow if K>10)")
+#         found = False
+#         for vals in itertools.product(range(3), repeat=K):
+#             subs = {sym: sp.Integer(v) for sym, v in zip(unknowns2, vals)}
+#             ok = True
+#             for p in reduced_polys:
+#                 val = sp.expand(p.subs(subs))  
+#                 val_mod3 = sp.Mod(val, 3)
+#                 if sp.simplify(val_mod3) != 0:
+#                     ok = False
+#                     break
+#             if ok:
+#                 print("Found GF(3) solution:", subs)
+#                 found = True
+#                 break
+#         if not found:
+#             print("No GF(3) solution found by exhaustive search.")
+#     else:
+#         print("K too large for brute force; try random trials with limited budget.")
+#         import random
+#         found = False
+#         for t in range(500):
+#             subs = {sym: random.randint(0,2) for sym in unknowns2}
+#             ok = True
+#             for p in reduced_polys:
+#                 val = sp.expand(p.subs(subs))
+#                 val_mod3 = sp.Mod(val, 3)
+#                 if sp.simplify(val_mod3) != 0:
+#                     ok = False
+#                     break
+#             if ok:
+#                 print("Random GF(3) solution found:", subs)
+#                 found = True
+#                 break
+#         if not found:
+#             print("No random GF(3) solution found in 500 trials.")
 
 # print("\nDebugging star_sym for (F, E):")
 # fe = star_sym('F', 'E')
@@ -1087,43 +1106,207 @@ if use_char3 and reduced_polys:
 #     print(f"beta[('F', 'E', '{z}')]: {beta.get(('F', 'E', z), 'Not Found')}")
 
 # --------------------------------------------------------------------------
-# ------------ Factor analysis of reduced polynomials ---------------
+# ------------ Factor analysis of reduced polynomials ----------------------
 # --------------------------------------------------------------------------
 
-# Defining helper function
-def factor_in_b_only(expr, b_vars):
-    """
-    Factor expr into factors involving only b_vars.
-    All other symbols that are not variables (e.g., g, ginv) are treated as constants.
-    """
-    
-    polynomial = sp.Poly(expr, *b_vars, domain=sp.EX)
-    coeff, factors = polynomial.factor_list()
-    return coeff, factors
-
 print('\n=== Factor analysis of reduced polynomials ===')
-
-factor_sets = []
-for poly in reduced_polys: 
-    try: 
-        coeff, factors = factor_in_b_only(poly, unknowns2)
-        factor_sets.append([f for f, _ in factors])
-    except Exception as e: 
-        print('Factoring failed for:', poly)
-        print('Reason:', e)
-    
-# Inspecting factors
-print("\nSample factorizations:")
-for i, factors in enumerate(factor_sets[:5]):  # print first 10
-    print(f"[{i}] Factors:")
-    for f in factors:
-        print("   ", f)
         
+# --------------------------------------------------------------------------
+# -------- Step 1: Factor each polynomial and collect factor sets ----------
+# --------------------------------------------------------------------------
+
+irreducible_indices = []
+factored_indices = []
+factored_data = {}         # poly_index -> list of (factor, multiplicity)
+linear_factor_data = []    # (poly_index, factor_expr)
+
+for i, poly in enumerate(reduced_polys):
+    f = sp.factor(poly)
+    
+    # Check if the result is a product (Mul) — indicates genuine factorization
+    if f.func == sp.Mul:
+        # Extract the individual factors (ignore numeric constants like -1)
+        raw_args = f.as_ordered_factors()
+        nontrivial = [a for a in raw_args 
+                    if not a.is_number and a.free_symbols & set(unknowns2)]
+        
+        if len(nontrivial) >= 2:
+            factored_indices.append(i)
+            factored_data[i] = nontrivial
+            
+            # Check for linear factors
+            for fac in nontrivial:
+                try:
+                    deg = sp.Poly(fac, *unknowns2).total_degree()
+                    if deg == 1:
+                        linear_factor_data.append((i, fac))
+                except:
+                    pass
+            continue
+    
+    # If we reach here, the polynomial did not factor nontrivially
+    irreducible_indices.append(i)
+
+print(f"\nFactorization summary:")
+print(f"  Total polynomials:            {len(reduced_polys)}")
+print(f"  Irreducible:                  {len(irreducible_indices)}")
+print(f"  Nontrivially factored:        {len(factored_indices)}")
+print(f"  Polynomials with linear factors: {len(linear_factor_data)}")
+
+# --------------------------------------------------------------------------
+# ----------------- Step 3: Display Factored Polynomials -------------------
+# --------------------------------------------------------------------------
+
+print(f"\n=== Nontrivially factored polynomials ===")
+for idx in factored_indices[:]:  # show up to 15
+    print(f"  [{idx}] {sp.expand(reduced_polys[idx])}")
+    for fac in factored_data[idx]:
+        print(f"       -> factor: {fac}")
+        
+# --------------------------------------------------------------------------
+# ---------------- Step 4: Branch Analysis Linear Factors ------------------
+# --------------------------------------------------------------------------
+
+# If a polynomial factors as p_i = f_{i,1} * f_{i,2} * ..., then any  
+# solution must set at least one factor to zero. For linear factors, 
+# we can substitute and check if the residual system is consistent.
+
+print("\n==== Branch analysis: linear factor substitution ====")
+
+if linear_factor_data:
+    # Collect unique linear factors (deduplicate by string representation)
+    unique_linear = {}
+    for (poly_idx, f_expr) in linear_factor_data:
+        key = str(sp.expand(f_expr))
+        if key not in unique_linear:
+            unique_linear[key] = f_expr
+
+    print(f"Unique linear factors found: {len(unique_linear)}")
+    for name, f_expr in list(unique_linear.items())[:]:
+        print(f"  {f_expr} = 0")
+
+    branches_tested = 0
+    consistent_branches = 0
+
+    for name, lin_fac in unique_linear.items():
+        fac_sol = sp.solve(sp.Eq(lin_fac, 0), unknowns2, dict=True)
+        if not fac_sol:
+            continue
+
+        for sol in fac_sol:
+            branches_tested += 1
+
+            branch_polys = []
+            branch_has_nonzero_const = False
+
+            for p in reduced_polys:
+                p_sub = sp.expand(p.subs(sol))
+                if p_sub == 0:
+                    continue
+
+                remaining_unknowns = p_sub.free_symbols & set(unknowns2)
+                if not remaining_unknowns:
+                    if sp.simplify(p_sub) != 0:
+                        branch_has_nonzero_const = True
+                        break
+
+                branch_polys.append(p_sub)
+
+            if branch_has_nonzero_const:
+                print(f"  Branch {name} = 0: INCONSISTENT "
+                    f"(nonzero constant after substitution)")
+                continue
+
+            if branch_polys:
+                branch_unknowns = sorted(
+                    set().union(*[p.free_symbols for p in branch_polys])
+                    & set(unknowns2),
+                    key=str
+                )
+
+                if branch_unknowns:
+                    try:
+                        # Include Burde parameters as ring generators
+                        # (same as the main Groebner computation)
+                        branch_params = sorted(
+                            set().union(*[p.free_symbols for p in branch_polys])
+                            - set(unknowns2),
+                            key=str
+                        )
+                        
+                        # For structure 2: ensure both g and ginv are present
+                        if structure_version == 2:
+                            branch_param_names = {s.name for s in branch_params}
+                            if 'g' not in branch_param_names:
+                                branch_params.append(g)
+                            if 'ginv' not in branch_param_names:
+                                branch_params.append(ginv)
+                            branch_params = sorted(branch_params, key=lambda s: s.name)
+                        
+                        # Unknowns first, then parameters
+                        branch_gens = branch_unknowns + branch_params
+                        
+                        # Set up invert pairs for structure 2
+                        if structure_version == 2:
+                            branch_invert = [(g, ginv)]
+                        else:
+                            branch_invert = None
+                            
+                        branch_polys_mod3 = preprocess_polys_in_char_p(
+                            branch_polys, 3, branch_gens,
+                            invert_pairs=branch_invert
+                        )
+                        G_branch = groebner(
+                            branch_polys_mod3, *branch_gens,
+                            order='lex', domain=sp.GF(3),
+                            method='buchberger'
+                        )
+                        branch_incon = any(gb == 1 for gb in G_branch)
+                        if branch_incon:
+                            print(f"  Branch {name} = 0: INCONSISTENT "
+                                f"(Groebner = {{1}})")
+                        else:
+                            print(f"  Branch {name} = 0: POTENTIALLY CONSISTENT "
+                                f"(Groebner size {len(G_branch)})")
+                            consistent_branches += 1
+                    except Exception as e:
+                        print(f"  Branch {name} = 0: Groebner failed ({e})")
+                else:
+                    print(f"  Branch {name} = 0: no unknowns remain, "
+                        f"checking constants...")
+            else:
+                print(f"  Branch {name} = 0: all polys vanish -> "
+                    f"TRIVIALLY CONSISTENT")
+                consistent_branches += 1
+
+    print(f"\nBranch analysis summary:")
+    print(f"  Branches tested:        {branches_tested}")
+    print(f"  Inconsistent:           {branches_tested - consistent_branches}")
+    print(f"  Potentially consistent: {consistent_branches}")
+
+    if consistent_branches == 0:
+        print("\nCONCLUSION: All factor branches are inconsistent.")
+        print("This independently confirms the Groebner basis result.")
+    else:
+        print(f"\nWARNING: {consistent_branches} branch(es) may be consistent. "
+            f"Further analysis required.")
+else:
+    print("No linear factors found among the reduced polynomials.")
+    print("All polynomials are either irreducible or have only nonlinear "
+        "factors.")
+    print("Since no nontrivial decomposition into linear sub-varieties "
+        "is possible, the factorization approach yields no additional "
+        "information beyond the Groebner basis computation.")
+
+# --------------------------------------------------------------------------
+# --------- Step 5: Print sample polynomials for reference -----------------
+# --------------------------------------------------------------------------
+
+print(f"\n=== Structure {structure_version}: Sample reduced polynomials ===")
+for i, p in enumerate(reduced_polys[:5]):
+    print(f"  [{i}] {sp.expand(p)}")
+
 # printing some elements of unknowns2 for inspection
 print("\nSample unknowns2 (b variables):")
-for u in unknowns2[:10]:  # print first 10
-    print("   ", u)
-    
-print(f"\n=== Structure {structure_version}: Sample reduced polynomials ===")
-for i, p in enumerate(reduced_polys[:10]):
-    print(f"  [{i}] {sp.expand(p)}")
+for s in unknowns2[:10]:
+    print("   ", s)
