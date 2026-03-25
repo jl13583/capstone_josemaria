@@ -282,7 +282,7 @@ if solution:
                 print(f"{k} = {sp.simplify(v)}")
 else:
     print("No exact symbolic solution — equations may be dependent or inconsistent.")
-    # Optional diagnostic: check if any equations are identically true or false
+    # diagnostic: checking if any equations are identically true or false
     for e in eqs[:10]:  # print a few samples
         print(e, "->", e.lhs.simplify() == e.rhs.simplify())
         
