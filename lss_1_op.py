@@ -52,16 +52,16 @@ def D(x, y, z):
 
 # running checks for all triples 
 cnt = 0
-# for x in range(3):
-#     for y in range(3):
-#         for z in range(3):
-#             cnt += 1
-#             print(f'Check {cnt}:')
-#             print(f'Checking D({names[x]}, {names[y]}, {names[z]})')
-#             d = D(x, y, z)
-#             print("(x,y,z) =", assoc(x, y, z))
-#             print("(y,x,z) =", assoc(y, x, z)) 
-#             print('Result =', d)
-#             print('Is zero:', d == sp.Matrix([0,0,0]))
-#             print(f"Total checks so far: {cnt}")
-#             print('---')
+for x in range(3):
+    for y in range(3):
+        for z in range(3):
+            cnt += 1
+            print(f'Check {cnt}:')
+            print(f'Checking D({names[x]}, {names[y]}, {names[z]})')
+            d = D(x, y, z)
+            print("(x,y,z) =", assoc(x, y, z))
+            print("(y,x,z) =", assoc(y, x, z)) 
+            print('Result =', d)
+            print('Is zero:', d == sp.Matrix([0,0,0]))
+            print(f"Total checks so far: {cnt}")
+            print('---')

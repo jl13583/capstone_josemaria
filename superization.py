@@ -228,7 +228,7 @@ pairs_seen = set()
 
 for x in even+odd:
     for y in even+odd:
-        # Skip even-even pairs (handled by Burde's structures)
+        # Skip even-even pairs (handled by Burde's structures in lss_1_op.py or lss_2_op.py files)
         if x in even and y in even: 
             continue
         
@@ -296,7 +296,7 @@ if not solution:
 
 sol0 = solution[0]   # dictionary mapping some unknowns -> expressions (possibly in other unknowns)
 
-# 1) Determine free symbols (those in unknowns not solved for directly)
+# 1) determine free symbols (those in unknowns not solved for directly)
 sol_keys = set(sol0.keys())
 free_syms = [s for s in unknowns if s not in sol_keys]
 
@@ -313,7 +313,7 @@ for s in unknowns:
         # It is free
         print(f"{s} = free parameter")
 
-# === Build full table of coefficients ===
+# === Build full table of coefficients Latex ===
 # latex_rows = []
 # for s in list(beta.values()):
 #     name = sp.latex(s)
@@ -338,7 +338,7 @@ for s in unknowns:
 # print(latex_table)
 # --------------------------------------------------------
 
-# 2) Function to construct a full substitution mapping for all unknowns
+# 2) function to construct a full substitution mapping for all unknowns
 def build_full_substitution(free_assign):
     """
     free_assign: dict {Symbol: value} giving concrete values for each free symbol.
@@ -422,7 +422,7 @@ def run_spot_tests(num_trials=10, rng_seed=0, modp=None):
             print(f"Trial {t}: PASS (assignment {assign})")
         else:
             print(f"Trial {t}: FAIL (assignment {assign}) with {bad_count} nonzero residuals")
-            # Optionally break early if you want
+            # Optional break
             # break
 
 # 5) Run some tests (example: 20 random trials, also a deterministic one with zeros)
@@ -585,7 +585,7 @@ for x in gens:
 # print("a2:", a2)
 
 # print("\n=== Debugging eqs2 ===")
-# for i, eq in enumerate(eqs2[:10]):  # Print the first 10 equations
+# for i, eq in enumerate(eqs2[:10]):  # print the first 10 equations
 #     print(f"[{i}] {eq}")
 
 # --- B: Linear Reduction and Groebner over GF(3) or QQ ---
@@ -1054,7 +1054,7 @@ print(f"\nExported to {export_path}")
 #     K = len(unknowns2)
 #     if K <= 12:
 #         import itertools
-#         print("\nAttempting exhaustive search over GF(3) (this may be slow if K>10)")
+#         print("\nAttempting exhaustive search over GF(3)")
 #         found = False
 #         for vals in itertools.product(range(3), repeat=K):
 #             subs = {sym: sp.Integer(v) for sym, v in zip(unknowns2, vals)}
@@ -1123,9 +1123,9 @@ linear_factor_data = []    # (poly_index, factor_expr)
 for i, poly in enumerate(reduced_polys):
     f = sp.factor(poly)
     
-    # Check if the result is a product (Mul) — indicates genuine factorization
+    # check if the result is a product (Mul) — indicates genuine factorization
     if f.func == sp.Mul:
-        # Extract the individual factors (ignore numeric constants like -1)
+        # extract the individual factors (ignore numeric constants like -1)
         raw_args = f.as_ordered_factors()
         nontrivial = [a for a in raw_args 
                     if not a.is_number and a.free_symbols & set(unknowns2)]
@@ -1144,7 +1144,7 @@ for i, poly in enumerate(reduced_polys):
                     pass
             continue
     
-    # If we reach here, the polynomial did not factor nontrivially
+    # if we reach here, the polynomial did not factor nontrivially
     irreducible_indices.append(i)
 
 print(f"\nFactorization summary:")
