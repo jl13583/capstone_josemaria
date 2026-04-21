@@ -4,6 +4,8 @@ import random
 from textwrap import shorten
 from lss_1_op import assoc as assoc_lss1
 from lss_2_op import assoc as assoc_lss2
+from lss_3_op import assoc as assoc_lss3
+from lss_4_op import assoc as assoc_lss4
 from sympy.polys.polytools import groebner
 from sympy.polys.domains import GF
 import csv
@@ -14,7 +16,7 @@ from sympy import factor_list
 # Helper function: Reducing polynomial coefficients mod p
 # --------------------------------------------------------
 
-def preprocess_polys_in_char_p(expr, p, gens, invert_pairs=None):
+def preprocess_polys_in_char_p(expr, p, gens, invert_pairs=None, extra_relations=None):
     """
     Prepare polynomial system over GF(p).
     - expr: list of expressions f = 0
@@ -31,6 +33,9 @@ def preprocess_polys_in_char_p(expr, p, gens, invert_pairs=None):
         for g, ginv in invert_pairs:
             polys.append(g*ginv - 1)
             invertible_syms |= {g, ginv}
+            
+    if extra_relations:
+        polys.extend(extra_relations)
 
     out = []
     for f in polys:
@@ -90,7 +95,7 @@ odd  = ['Tp','Tm']
 gens = even + odd
 
 # --- Choosing Burde's structures ---
-structure_version = 2  # or 2
+structure_version = 2  # one of {1,2,3,4}
 
 if structure_version == 1:
     u, v = sp.symbols('u v')
@@ -116,6 +121,34 @@ elif structure_version == 2:
     lamH = sp.Matrix([[g - 1, 0, 0], 
                     [0, g + 1, 0],
                     [0, 0, g]])
+
+elif structure_version == 3:
+    lamE = sp.Matrix([[0, 0, -1],
+                [0, 0, 0],
+                [0, 0, 0]])
+
+    lamF = sp.Matrix([[0, 1, 1],
+                [0, 0, -1], 
+                [-1, -1, 0]])
+
+    lamH = sp.Matrix([[1, 1, 0], 
+                [0, 0, 0],
+                [0, 0, -1]])
+    
+elif structure_version == 4:
+    # b = sp.I # using Sympy's imaginary unit
+    b = sp.Symbol('b')  # using a symbolic variable for b
+    lamE = sp.Matrix([[0, 0, b],
+                [0, 0, 0],
+                [0, b-1, 0]])
+
+    lamF = sp.Matrix([[0, 1, 0],
+                [0, 0, b], 
+                [b+1, 0, 0]])
+
+    lamH = sp.Matrix([[b - 1, 0, 0], 
+                [0, b + 1, 0],
+                [0, 0, b]])
     
 # --- Defining containers if missing ---
 if 'beta' not in locals():
@@ -483,6 +516,10 @@ def assoc_sym(x, y, z):
             result = assoc_lss1(index_map[x], index_map[y], index_map[z])
         elif structure_version == 2:
             result = assoc_lss2(index_map[x], index_map[y], index_map[z])
+        elif structure_version == 3:
+            result = assoc_lss3(index_map[x], index_map[y], index_map[z])
+        elif structure_version == 4:
+            result = assoc_lss4(index_map[x], index_map[y], index_map[z])
         else: 
             raise ValueError(f"Unsupported structure_version: {structure_version}")
         return {"E": result[0], "F": result[1], "H": result[2], "Tp": 0, "Tm": 0}
@@ -528,6 +565,10 @@ if structure_version == 1:
     _param_syms_stage2 = {sp.Symbol('u'), sp.Symbol('v')}
 elif structure_version == 2:
     _param_syms_stage2 = {sp.Symbol('g'), sp.Symbol('ginv')}
+elif structure_version == 3:
+    _param_syms_stage2 = set()
+elif structure_version == 4:
+    _param_syms_stage2 = {sp.Symbol('b')}
 else:
     _param_syms_stage2 = set()
 
@@ -632,8 +673,12 @@ if structure_version == 1:
     _param_syms = {sp.Symbol('u'), sp.Symbol('v')}
 elif structure_version == 2:
     _param_syms = {sp.Symbol('g'), sp.Symbol('ginv')}
-else:
+elif structure_version == 3:
     _param_syms = set()
+elif structure_version == 4:
+    _param_syms = {sp.Symbol('b')}
+else:
+    raise ValueError(f"Unsupported structure_version: {structure_version}")
 
 unknowns2 = sorted(
     [s for s in set(beta.values()) 
@@ -923,12 +968,16 @@ if reduced_polys:
         param_names = {'u', 'v'}
     elif structure_version == 2:
         param_names = {'g', 'ginv'}
-    else:
+    elif structure_version == 3:
         param_names = set()
+    elif structure_version == 4:
+        param_names = {'b'}
+    else:
+        raise ValueError(f"Unsupported structure_version: {structure_version}")
     
     # unknowns: b_X_Y_Z symbols only
     gb_unknowns = [s for s in all_free if s.name not in param_names]
-    # parameters: u,v or g,ginv
+    # parameters: u,v, g, ginv, or b
     gb_params = [s for s in all_free if s.name in param_names]
     
     # For structure 2: preprocess_polys_in_char_p will add g*ginv - 1, so both
@@ -941,6 +990,12 @@ if reduced_polys:
             gb_params.append(g)
         if 'ginv' not in gb_param_names:
             gb_params.append(ginv)
+        gb_params = sorted(gb_params, key=lambda s: s.name)
+        
+    if structure_version == 4:
+        # ensure b is included as a parameter if not already present
+        if not any(s.name == 'b' for s in gb_params):
+            gb_params.append(b)
         gb_params = sorted(gb_params, key=lambda s: s.name)
     
     # Put unknowns first for lex order elimination behavior
@@ -964,8 +1019,15 @@ if reduced_polys:
                 polys_for_gb = list(reduced_polys) 
                 polys_mod3 = preprocess_polys_in_char_p(polys_for_gb, 3, gens_all, invert_pairs=[(g, ginv)])
                 
+            elif structure_version == 3:
+                polys_for_gb = list(reduced_polys) 
+                polys_mod3 = preprocess_polys_in_char_p(polys_for_gb, 3, gens_all, invert_pairs=None)
+            elif structure_version == 4:
+                polys_for_gb = list(reduced_polys) 
+                # adjoining relation b**2 + 1 = 0 since b is symbolic i
+                polys_mod3 = preprocess_polys_in_char_p(polys_for_gb, 3, gens_all, invert_pairs=None, extra_relations=[b**2 + 1])
             else:
-                raise ValueError("Unknown structure; expected 1 or 2")
+                raise ValueError("Unknown structure; expected 1, 2, 3, or 4.")
             
             # Sanity check: no remaining denominators
             for i, p in enumerate(polys_mod3):
@@ -986,7 +1048,7 @@ if reduced_polys:
             print("Groebner(mod 3) failed:", e)
 
     else:
-        print("\nComputing Groebner basis over QQ ...")
+        print("\nComputing Groebner basis over EX ...")
         try:
             G = groebner(reduced_polys, *gens_all, order='lex', domain=sp.EX, method='buchberger')
             print("Groebner basis size:", len(G))
@@ -1025,6 +1087,9 @@ if structure_version == 1:
 elif structure_version == 2:
     param_syms   = [s for s in all_free_syms if str(s) in ('g', 'ginv')]
     unknown_syms = [s for s in all_free_syms if str(s) not in ('g', 'ginv')]
+elif structure_version in {3,4}:
+    param_syms = []
+    unknown_syms = all_free_syms
 
 var_names_export = [str(s) for s in param_syms + unknown_syms]
 
@@ -1249,12 +1314,23 @@ if linear_factor_data:
                         # Set up invert pairs for structure 2
                         if structure_version == 2:
                             branch_invert = [(g, ginv)]
+                            branch_extra = None
+                        elif structure_version == 4:
+                            branch_invert = None
+                            branch_extra = [(b**2 + 1)]
+                            # ensuring b is in branch_gens
+                            branch_param_names = {s.name for s in branch_gens}
+                            if 'b' not in branch_param_names:
+                                branch_gens.append(b)
+                                branch_gens = branch_unknowns + branch_params
                         else:
                             branch_invert = None
+                            branch_extra = None
                             
                         branch_polys_mod3 = preprocess_polys_in_char_p(
                             branch_polys, 3, branch_gens,
-                            invert_pairs=branch_invert
+                            invert_pairs=branch_invert, 
+                            extra_relations=branch_extra
                         )
                         G_branch = groebner(
                             branch_polys_mod3, *branch_gens,
