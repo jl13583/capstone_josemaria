@@ -95,7 +95,7 @@ odd  = ['Tp','Tm']
 gens = even + odd
 
 # --- Choosing Burde's structures ---
-structure_version = 2  # one of {1,2,3,4}
+structure_version = 4  # one of {1,2,3,4}
 
 if structure_version == 1:
     u, v = sp.symbols('u v')
@@ -1227,6 +1227,12 @@ for idx in factored_indices[:]:  # show up to 15
     print(f"  [{idx}] {sp.expand(reduced_polys[idx])}")
     for fac in factored_data[idx]:
         print(f"       -> factor: {fac}")
+        
+# print all polynomials to inspect indexing
+# print("\n=== All reduced polynomials (expanded) ===")
+# for i, p in enumerate(reduced_polys):
+#     print(f"[{i}] {sp.expand(p)}")
+
         
 # --------------------------------------------------------------------------
 # ---------------- Step 4: Branch Analysis Linear Factors ------------------
