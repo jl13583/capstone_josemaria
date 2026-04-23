@@ -1,0 +1,72 @@
+Nullstellensatz Certificate for Structure 4
+==================================================
+
+Certificate polynomials h_i (nonzero):
+
+h_35 = 1
+f_35 = -b_Tm_E_Tp*b_Tp_F_Tm + b_Tm_E_Tp + b_Tm_F_Tp*b_Tp_E_Tm - b_Tm_H_Tm + b_Tp_F_Tm
+
+h_64 = b_Tm_H_Tp - b_Tp_F_Tp
+f_64 = b_Tm_E_Tp*b_Tp_H_Tm - b_Tm_H_Tp*b_Tp_E_Tm - b_Tp_E_Tp - b_Tp_H_Tm
+
+h_68 = -b_Tm_F_Tm*b_Tm_H_Tp + b_Tm_F_Tm*b_Tp_F_Tp + b_Tm_F_Tp + b_Tm_H_Tp^2 - b_Tp_F_Tp^2
+f_68 = b_Tm_F_Tp*b_Tp_H_Tm - b_Tm_H_Tp*b_Tp_F_Tm + b_Tm_H_Tp + b_Tp_F_Tp
+
+h_70 = -b_Tm_H_Tp + b_Tp_F_Tp
+f_70 = -b_Tm_F_Tm*b_Tm_H_Tp + b_Tm_F_Tp*b_Tm_H_Tm - b_Tm_F_Tp*b_Tp_H_Tp - b_Tm_F_Tp + b_Tm_H_Tp*b_Tp_F_Tp
+
+h_71 = b_Tm_F_Tp + b_Tm_H_Tp^2 + b_Tm_H_Tp*b_Tp_F_Tp + b_Tm_Tp_F + b_Tp_F_Tp^2
+f_71 = b_Tm_F_Tm - b_Tm_F_Tp*b_Tp_H_Tm + b_Tm_H_Tp*b_Tp_F_Tm - b_Tm_H_Tp
+
+h_110 = b_Tm_F_Tm - b_Tm_H_Tp + b_Tp_F_Tp
+f_110 = b_Tm_F_Tp*b_Tp_F_Tm + b_Tm_F_Tp - b_Tp_E_Tp + b_Tp_F_Tp^2
+
+h_111 = -b_Tm_H_Tp^2 + b_Tm_H_Tp*b_Tp_F_Tp
+f_111 = b_Tm_F_Tm*b_Tp_F_Tm + b_Tm_F_Tm - b_Tp_E_Tm + b_Tp_F_Tm*b_Tp_F_Tp - b_Tp_F_Tp
+
+h_136 = b_Tm_H_Tp
+f_136 = -b_Tm_Tp_F*b_Tp_F_Tm
+
+h_139 = -b_Tm_F_Tp
+f_139 = -b_Tm_Tp_F*b_Tp_H_Tm
+
+h_146 = -b_Tm_H_Tm*b_Tm_H_Tp + b_Tm_H_Tm*b_Tp_F_Tp + b_Tm_H_Tp*b_Tp_H_Tp - b_Tm_H_Tp - b_Tp_F_Tp*b_Tp_H_Tp - b_Tp_F_Tp
+f_146 = b_Tm_F_Tm*b_Tm_Tp_E - b_Tm_F_Tp - b_Tm_Tp_E*b_Tp_F_Tp
+
+h_147 = -1
+f_147 = b + b_Tm_F_Tm*b_Tm_Tp_F - b_Tm_Tp_F*b_Tp_F_Tp + b_Tp_F_Tm + 1
+
+h_150 = b_Tm_H_Tp - b_Tp_F_Tp
+f_150 = b_Tm_H_Tm*b_Tm_Tp_F - b_Tm_Tp_F*b_Tp_H_Tp + b_Tp_H_Tm
+
+h_163 = -b_Tm_F_Tp
+f_163 = -b_Tm_Tp_F*b_Tp_E_Tp + b_Tp_E_Tm
+
+h_170 = -b_Tm_H_Tp*b_Tm_Tp_F + b_Tm_H_Tp*b_Tp_H_Tm - b_Tm_Tp_H - b_Tp_F_Tm - b_Tp_F_Tp*b_Tp_H_Tm + 1
+f_170 = -b_Tm_E_Tp + b_Tm_F_Tm*b_Tm_F_Tp + b_Tm_F_Tp*b_Tp_F_Tp
+
+h_171 = b_Tm_H_Tp
+f_171 = -b_Tm_E_Tm + b_Tm_F_Tm^2 + b_Tm_F_Tp*b_Tp_F_Tm - b_Tm_F_Tp
+
+h_174 = b_Tm_H_Tm*b_Tm_H_Tp - b_Tm_H_Tm*b_Tp_F_Tp - b_Tm_H_Tp*b_Tp_H_Tp + b_Tm_H_Tp + b_Tp_F_Tp*b_Tp_H_Tp + b_Tp_F_Tp
+f_174 = -b_Tm_Tp_E*b_Tp_F_Tp + b_Tm_Tp_F
+
+h_193 = -b_Tm_H_Tp
+f_193 = -b_Tm_E_Tm + b_Tm_E_Tp*b_Tm_Tp_F
+
+h_194 = -1
+f_194 = b + b_Tm_E_Tp*b_Tm_Tp_H + 1
+
+h_195 = b_Tm_H_Tm*b_Tm_H_Tp*b_Tm_Tp_F - b_Tm_H_Tm*b_Tm_Tp_F*b_Tp_F_Tp - b_Tm_H_Tp*b_Tm_Tp_F*b_Tp_H_Tp + b_Tm_H_Tp*b_Tm_Tp_F + b_Tm_Tp_F*b_Tp_F_Tp*b_Tp_H_Tp + b_Tm_Tp_F*b_Tp_F_Tp
+f_195 = b_Tm_F_Tp*b_Tm_Tp_E + 1
+
+h_196 = b_Tm_F_Tm*b_Tm_H_Tp - b_Tm_H_Tm*b_Tm_H_Tp*b_Tm_Tp_E + b_Tm_H_Tm*b_Tm_Tp_E*b_Tp_F_Tp + b_Tm_H_Tp*b_Tm_Tp_E*b_Tp_H_Tp - b_Tm_H_Tp*b_Tm_Tp_E + b_Tm_H_Tp*b_Tp_F_Tp - b_Tm_Tp_E*b_Tp_F_Tp*b_Tp_H_Tp - b_Tm_Tp_E*b_Tp_F_Tp - b_Tp_E_Tp
+f_196 = -b_Tm_F_Tm + b_Tm_F_Tp*b_Tm_Tp_F
+
+h_197 = b_Tm_F_Tm + b_Tp_F_Tp
+f_197 = b_Tm_F_Tp*b_Tm_Tp_H
+
+h_199 = -1
+f_199 = b - b_Tm_H_Tm + b_Tm_H_Tp*b_Tm_Tp_F
+
+Verification: Σ h_i * f_i = 1 (should be 1)

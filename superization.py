@@ -1323,12 +1323,13 @@ if linear_factor_data:
                             branch_extra = None
                         elif structure_version == 4:
                             branch_invert = None
-                            branch_extra = [(b**2 + 1)]
+                            branch_extra = [b**2 + 1]
                             # ensuring b is in branch_gens
-                            branch_param_names = {s.name for s in branch_gens}
+                            branch_param_names = {s.name for s in branch_params}
                             if 'b' not in branch_param_names:
                                 branch_gens.append(b)
-                                branch_gens = branch_unknowns + branch_params
+                                branch_params = sorted(branch_params, key=lambda s: s.name)
+                            branch_gens = branch_unknowns + branch_params
                         else:
                             branch_invert = None
                             branch_extra = None
